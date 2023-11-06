@@ -1,13 +1,6 @@
 { config, pkgs, ... }:
 
 {
-    imports = [
-        ./hardware-configuration.nix
-    ];
-
-    # Enable guest additions for VirtualBox.
-    virtualisation.virtualbox.guest.enable = true;
-
     # Enable GRUB bootloader.
     boot = {
         kernelPackages = pkgs.linuxPackages;
@@ -27,9 +20,6 @@
         };
     };
 
-    # Define your hostname.
-    networking.hostName = "nixos-vm";
-
     # Enable networking
     networking.networkmanager.enable = true;
 
@@ -47,7 +37,7 @@
     # Configure console font and keymap.
     console = {
         font = "Lat2-Terminus16";
-        keyMap = "pt-latin9";
+        keyMap = "pt-latin1";
     };
 
     # Define a user account.
