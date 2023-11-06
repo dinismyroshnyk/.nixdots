@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ username, config, pkgs, ... }:
 
 {
     # Enable GRUB bootloader.
@@ -41,9 +41,9 @@
     };
 
     # Define a user account.
-    users.users.dinis = {
+    users.users.${username} = {
         isNormalUser = true;
-        description = "Dinis";
+        # description = "Dinis Myroshnyk";
         extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
     };
 
