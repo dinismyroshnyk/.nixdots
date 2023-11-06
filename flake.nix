@@ -31,7 +31,7 @@
                             };
                         }
                     ];
-                    specialArgs = { inherit inputs username; };
+                    specialArgs = { inherit inputs username hostname; };
                 };
         in {
             nixosConfigurations = {

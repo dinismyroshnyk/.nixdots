@@ -1,4 +1,4 @@
-{ username, config, pkgs, ... }:
+{ username, hostname, config, pkgs, ... }:
 
 {
     # Enable GRUB bootloader.
@@ -40,10 +40,16 @@
         keyMap = "pt-latin1";
     };
 
+    # Set environment variables.
+    environment.variables = {
+        NIXOS_CONFIG_DIR = "$HOME/.nixdots/";
+        HOSTNAME = "${hostname}";
+    };
+
     # Define a user account.
     users.users.${username} = {
         isNormalUser = true;
-        # description = "Dinis Myroshnyk";
+        description = "Dinis Myroshnyk";
         extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
     };
 
@@ -54,5 +60,5 @@
     nix.settings.experimental-features = [ "flakes" "nix-command" ];
 
     # System state version.
-    system.stateVersion = "23.05";
+    system.stateVersion = "23.11";
 }
