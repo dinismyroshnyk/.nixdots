@@ -2,8 +2,8 @@
 
 {
     imports = [
-        /home/dinis/.nixdots/modules/programs/git
-        /home/dinis/.nixdots/modules/programs/zsh
+        ./programs/git
+        ./programs/zsh
     ];
 
     home.stateVersion = "23.11";
