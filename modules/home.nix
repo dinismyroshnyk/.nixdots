@@ -4,7 +4,7 @@
     imports = [
         ./programs/git
         ./programs/zsh
-        ./nvim
+        ./programs/nvim
     ];
 
     home.stateVersion = "23.11";
