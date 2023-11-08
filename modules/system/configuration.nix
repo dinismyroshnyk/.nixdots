@@ -31,11 +31,11 @@ in {
     # Select internationalisation properties.
     i18n = userConfig.i18n;
 
-    # Configure console font and keymap.
-    console = {
-        font = "Lat2-Terminus16";
-        keyMap = "pt-latin1";
-    };
+    # Configure keymap.
+    console.keyMap = userConfig.console.keyMap;
+
+    # Configure fonts.
+    fonts.packages = userConfig.fonts.packages;
 
     # Set environment variables.
     environment.variables = userConfig.environment.variables;

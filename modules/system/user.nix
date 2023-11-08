@@ -25,6 +25,14 @@ in {
         };
     };
 
+    # Configure keymap.
+    console.keyMap = "pt-latin1";
+
+    # Configure fonts.
+    fonts.packages = with pkgs; [
+        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    ];
+
     # Set environment variables.
     environment.variables = {
         NIXOS_CONFIG_DIR = "$HOME/.nixdots/";
