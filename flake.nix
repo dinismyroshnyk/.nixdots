@@ -14,6 +14,9 @@
             system = "x86_64-linux";
             pkgs = inputs.nixpkgs.legacyPackages.${system};
             lib = pkgs.lib;
+            userConfig = import ./modules/system/user.nix { inherit pkgs; };
+            hostname = userConfig.hostname;
+            username = userConfig.username;
             mkSystem = pkgs: system: hostname: username:
                 pkgs.lib.nixosSystem {
                     system = system;
@@ -31,11 +34,11 @@
                             };
                         }
                     ];
-                    specialArgs = { inherit inputs username hostname; };
+                    specialArgs = { inherit inputs; };
                 };
         in {
             nixosConfigurations = {
-                vm-test = mkSystem inputs.nixpkgs "x86_64-linux" "vm-test" "dinis";
+                "${hostname}" = mkSystem nixpkgs system hostname username;
             };
-    };
+    	};
 }

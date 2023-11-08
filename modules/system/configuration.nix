@@ -1,6 +1,8 @@
-{ username, hostname, config, pkgs, ... }:
+{ config, pkgs, ... }:
 
-{
+let 
+    userConfig = import ./user.nix { inherit pkgs; };
+in {
     # Enable GRUB bootloader.
     boot = {
         kernelPackages = pkgs.linuxPackages;
@@ -24,15 +26,10 @@
     networking.networkmanager.enable = true;
 
     # Set your time zone.
-    time.timeZone = "Europe/Lisbon";
+    time.timeZone = userConfig.time.timeZone;
 
     # Select internationalisation properties.
-    i18n = {
-        defaultLocale = "pt_PT.UTF-8";
-        extraLocaleSettings = {
-            LANG = "en_US.UTF-8";
-        };
-    };
+    i18n = userConfig.i18n;
 
     # Configure console font and keymap.
     console = {
@@ -41,20 +38,16 @@
     };
 
     # Set environment variables.
-    environment.variables = {
-        NIXOS_CONFIG_DIR = "$HOME/.nixdots/";
-        HOSTNAME = "${hostname}";
-    };
+    environment.variables = userConfig.environment.variables;
 
     # Define a user account.
-    users.users.${username} = {
-        isNormalUser = true;
-        description = "Dinis Myroshnyk";
-        extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
-    };
+    users.users = userConfig.users.users;
 
     # Disable prompt for sudo password.
     security.sudo.wheelNeedsPassword = false;
+
+    # System wide packages.
+    programs = userConfig.programs;
 
     # Enable flake support.
     nix.settings.experimental-features = [ "flakes" "nix-command" ];

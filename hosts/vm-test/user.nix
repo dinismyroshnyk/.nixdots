@@ -6,5 +6,6 @@
     config.modules = {
         git.enable = true;
         zsh.enable = true;
+        nvim.enable = true;
     };
 }
