@@ -9,7 +9,7 @@ in {
     config = mkIf cfg.enable {
         home = {
             packages = with pkgs; [ hyprland ];
-            #file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
+            file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
         };
     };
 }
