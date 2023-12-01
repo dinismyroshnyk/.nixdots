@@ -6,7 +6,7 @@
         ./programs/zsh
         ./programs/nvim
         ./programs/lf
-        ./programs/hyprland
+        #./programs/hyprland
     ];
 
     home.stateVersion = "23.11";

@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
-let 
-    userConfig = import ./user.nix { inherit pkgs; };
-in {
+{
     # Enable GRUB bootloader.
     boot = {
         kernelPackages = pkgs.linuxPackages;
@@ -25,29 +23,44 @@ in {
     # Enable networking
     networking.networkmanager.enable = true;
 
+    # Define a user account.
+    users.users.dinis = {
+        shell = pkgs.zsh;
+        isNormalUser = true;
+        description = "Dinis Myroshnyk";
+        extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
+    };
+
     # Set your time zone.
-    time.timeZone = userConfig.time.timeZone;
+    time.timeZone = "Europe/Lisbon";
 
     # Select internationalisation properties.
-    i18n = userConfig.i18n;
+    i18n = {
+        defaultLocale = "pt_PT.UTF-8";
+        extraLocaleSettings = {
+            LANG = "en_US.UTF-8";
+        };
+    };
 
     # Configure keymap.
-    console.keyMap = userConfig.console.keyMap;
+    console.keyMap = "pt-latin1";
 
     # Configure fonts.
-    fonts.packages = userConfig.fonts.packages;
+    fonts.packages = with pkgs; [
+        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    ];
 
     # Set environment variables.
-    environment.variables = userConfig.environment.variables;
-
-    # Define a user account.
-    users.users = userConfig.users.users;
+    environment.variables = {
+        NIXOS_CONFIG_DIR = "$HOME/.config/nixos/";
+        EDITOR = "nvim";
+    };
 
     # Disable prompt for sudo password.
     security.sudo.wheelNeedsPassword = false;
 
     # System wide packages.
-    programs = userConfig.programs;
+    programs.zsh.enable = true;
 
     # Enable flake support.
     nix.settings.experimental-features = [ "flakes" "nix-command" ];

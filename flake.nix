@@ -14,14 +14,12 @@
             system = "x86_64-linux";
             pkgs = inputs.nixpkgs.legacyPackages.${system};
             lib = pkgs.lib;
-            userConfig = import ./modules/system/user.nix { inherit pkgs; };
-            hostname = userConfig.hostname;
-            username = userConfig.username;
-            mkSystem = pkgs: system: hostname: username:
+            mkSystem = pkgs: system: hostname:
                 pkgs.lib.nixosSystem {
                     system = system;
                     modules = [
                         { networking.hostName = hostname; }
+                        { environment.variables.HOSTNAME = hostname; }
                         ./modules/system/configuration.nix
                         ./hosts/${hostname}/hardware-configuration.nix
                         home-manager.nixosModules.home-manager
@@ -30,7 +28,7 @@
                                 useUserPackages = true;
                                 useGlobalPkgs = true;
                                 extraSpecialArgs = { inherit inputs; };
-                                users.${username} = ./hosts/${hostname}/user.nix;
+                                users.dinis = ./hosts/${hostname}/user.nix;
                             };
                         }
                     ];
@@ -38,7 +36,8 @@
                 };
         in {
             nixosConfigurations = {
-                "${hostname}" = mkSystem nixpkgs system hostname username;
+                vm-test = mkSystem nixpkgs system "vm-test";
+                omen-15 = mkSystem nixpkgs system "omen-15";
             };
     	};
 }
