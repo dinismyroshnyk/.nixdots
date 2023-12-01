@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
+    # Import configurations.
+    imports = [
+        ./nvidia.nix
+    ];
+
     # Enable GRUB bootloader.
     boot = {
         kernelPackages = pkgs.linuxPackages;
@@ -66,5 +71,5 @@
     nix.settings.experimental-features = [ "flakes" "nix-command" ];
 
     # System state version.
-    system.stateVersion = "23.11";
+    system.stateVersion = "24.05";
 }
