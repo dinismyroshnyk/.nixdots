@@ -8,6 +8,6 @@
         zsh.enable = true;
         nvim.enable = true;
         lf.enable = true;
-        hyprland.enable = false;
+        hyprland.enable = true;
     };
 }
