@@ -13,7 +13,7 @@
         };
     };
 
-    outputs = {nixpkgs, home-manager, nix-vscode-extensions, ... }@inputs: 
+    outputs = {nixpkgs, home-manager, ... }@inputs: 
         let 
             system = "x86_64-linux";
             pkgs = inputs.nixpkgs.legacyPackages.${system};
@@ -34,9 +34,6 @@
                                 extraSpecialArgs = { inherit inputs; };
                                 users.dinis = ./hosts/${hostname}/user.nix;
                             };
-                            nixpkgs.overlays = [
-                                nix-vscode-extensions.overlay
-                            ]
                         }
                     ];
                     specialArgs = { inherit inputs; };
