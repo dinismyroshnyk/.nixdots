@@ -8,6 +8,7 @@
         ./programs/lf
         ./programs/hyprland
         ./programs/kitty
+        ./programs/firefox
     ];
 
     home.stateVersion = "24.05";
