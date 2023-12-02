@@ -9,7 +9,7 @@
         ./programs/hyprland
         ./programs/kitty
         ./programs/firefox
-        ./programs/vscode
+        ./programs/vscode { inherit inputs; }
     ];
 
     home.stateVersion = "24.05";
