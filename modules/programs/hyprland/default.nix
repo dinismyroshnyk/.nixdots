@@ -9,7 +9,7 @@ in {
     config = mkIf cfg.enable {
         wayland.windowManager.hyprland = {
             enable = true;
-            enableNvidiaPatches = true;
+            #enableNvidiaPatches = true;
             extraConfig = lib.fileContents ./hyprland.conf;
         };
     };

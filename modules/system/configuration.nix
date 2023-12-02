@@ -36,7 +36,7 @@
         shell = pkgs.zsh;
         isNormalUser = true;
         description = "Dinis Myroshnyk";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
     };
 
     # Set your time zone.
