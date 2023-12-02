@@ -34,6 +34,9 @@
                                 extraSpecialArgs = { inherit inputs; };
                                 users.dinis = ./hosts/${hostname}/user.nix;
                             };
+                            nixpkgs.overlays = [
+                                nix-vscode-extensions.overlay
+                            ]
                         }
                     ];
                     specialArgs = { inherit inputs; };
