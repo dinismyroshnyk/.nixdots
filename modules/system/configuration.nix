@@ -62,6 +62,7 @@
     environment.variables = {
         NIXOS_CONFIG_DIR = "$HOME/.config/nixos/";
         EDITOR = "nvim";
+        NIXOS_OZONE_WL = "1";
         MOZ_ENABLE_WAYLAND = "1"; # Firefox fix.
         WLR_NO_HARDWARE_CURSORS = "1"; # VirtualBox fix.
         WLR_RENDERER_ALLOW_SOFTWARE = "1"; # VirtualBox fix.

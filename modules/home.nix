@@ -9,6 +9,7 @@
         ./programs/hyprland
         ./programs/kitty
         ./programs/firefox
+        ./programs/vscode
     ];
 
     home.stateVersion = "24.05";
