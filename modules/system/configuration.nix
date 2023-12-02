@@ -66,6 +66,9 @@
         WLR_RENDERER_ALLOW_SOFTWARE = "1"; # VirtualBox fix.
     };
 
+    # Enable VirtualBox guest additions.
+    virtualisation.virtualbox.guest.enable = true;
+
     # Disable prompt for sudo password.
     security.sudo.wheelNeedsPassword = false;
 
