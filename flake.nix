@@ -13,7 +13,7 @@
         };
     };
 
-    outputs = {nixpkgs, home-manager, ... }@inputs: 
+    outputs = {nixpkgs, home-manager, nix-vscode-extensions, ... }@inputs: 
         let 
             system = "x86_64-linux";
             pkgs = inputs.nixpkgs.legacyPackages.${system};

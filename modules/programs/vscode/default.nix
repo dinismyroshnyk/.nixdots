@@ -1,10 +1,10 @@
-{ pkgs, lib, config, inputs, ... }:
+{ pkgs, lib, config, ... }:
 
 with lib;
 
 let 
     cfg = config.modules.vscode;
-    vscodeExtensions = with inputs.nix-vscode-extensions.extensions; [
+    vscodeExtensions = with pkgs.nix-vscode-extensions.extensions; [
         codescene.codescene-vscode
         notyasho.ocean-high-contrast
     ];
