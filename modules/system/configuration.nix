@@ -6,9 +6,6 @@
         ./nvidia.nix
     ];
 
-    # Allow unfree packages.
-    nixpkgs.config.allowUnfree = true;
-
     # Enable GRUB bootloader.
     boot = {
         kernelPackages = pkgs.linuxPackages;
