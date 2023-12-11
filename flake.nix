@@ -11,13 +11,10 @@
             url = "github:nix-community/nix-vscode-extensions";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        firefox-addons = {
-            url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        nur.url = "github:nix-community/NUR";
     };
 
-    outputs = {nixpkgs, home-manager, ... }@inputs: 
+    outputs = {nixpkgs, home-manager, nur, ... }@inputs: 
         let 
             system = "x86_64-linux";
             pkgs = inputs.nixpkgs.legacyPackages.${system};
@@ -28,6 +25,7 @@
                     modules = [
                         { networking.hostName = hostname; }
                         { environment.variables.HOSTNAME = hostname; }
+                        { nixpkgs.config.allowUnfree = true; }
                         ./modules/system/configuration.nix
                         ./hosts/${hostname}/hardware-configuration.nix
                         home-manager.nixosModules.home-manager
@@ -38,6 +36,7 @@
                                 extraSpecialArgs = { inherit inputs; };
                                 users.dinis = ./hosts/${hostname}/user.nix;
                             };
+                            nixpkgs.overlays = [ nur.overlay ];
                         }
                     ];
                     specialArgs = { inherit inputs; };
