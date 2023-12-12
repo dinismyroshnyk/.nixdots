@@ -1,1 +1,1 @@
-# .nixdots
+# My NixOS configuration

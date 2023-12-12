@@ -13,5 +13,9 @@ in {
             xwayland.enable = true;
             extraConfig = lib.fileContents ./hyprland.conf;
         };
+        home.sessionVariables = {
+            NIXOS_OZONE_WL = "1";
+            OZONE_PLATFORM = "wayland";
+        };
     };
 }

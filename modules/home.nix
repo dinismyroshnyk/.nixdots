@@ -7,7 +7,7 @@
         ./programs/nvim
         ./programs/lf
         ./programs/hyprland
-        ./programs/kitty
+        ./programs/foot
         ./programs/firefox
         ./programs/vscode
     ];

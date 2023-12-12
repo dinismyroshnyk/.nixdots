@@ -9,7 +9,7 @@
         nvim.enable = true;
         lf.enable = true;
         hyprland.enable = true;
-        kitty.enable = true;
+        foot.enable = true;
         firefox.enable = true;
         vscode.enable = true;
     };
