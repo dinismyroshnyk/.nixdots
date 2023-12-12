@@ -8,6 +8,7 @@ in {
     options.modules.firefox = { enable = mkEnableOption "firefox"; };
     config = mkIf cfg.enable {
         programs.firefox = {
+            package = pkgs.firefox-devedition;
             enable = true;
             profiles.dinis = {
                 extensions = with pkgs.nur.repos.rycee.firefox-addons; [
@@ -35,28 +36,51 @@ in {
                 };
                 bookmarks = [
                     {
-                        name = "wikipedia";
-                        tags = [ "wiki" ];
-                        keyword = "wiki";
-                        url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
-                    }
-                    {
-                        name = "kernel.org";
-                        url = "https://www.kernel.org";
-                    }
-                    {
-                        name = "Nix sites";
+                        name = "Toolbar";
                         toolbar = true;
                         bookmarks = [
-                        {
-                            name = "homepage";
-                            url = "https://nixos.org/";
-                        }
-                        {
-                            name = "wiki";
-                            tags = [ "wiki" "nix" ];
-                            url = "https://nixos.wiki/";
-                        }
+                            {
+                                name = "ESTGOH";
+                                bookmarks = [
+                                    {
+                                        name = "Inforestudante";
+                                        url = "https://inforestudante.ipc.pt/nonio/security/login.do";
+                                    }
+                                    {
+                                        name = "SOGo";
+                                        url = "https://mailsecure.estgoh.ipc.pt/SOGo";
+                                    }
+                                    {
+                                        name = "Moodle";
+                                        url = "https://elearning2.estgoh.ipc.pt/login";
+                                    }
+                                ];
+                            }
+                            {
+                                name = "NixOS";
+                                bookmarks = [
+                                    {
+                                        name = "NixOS";
+                                        url = "https://nixos.org/";
+                                    }
+                                    {
+                                        name = "NixOS Wiki";
+                                        url = "https://nixos.wiki/";
+                                    }
+                                    {
+                                        name = "NixOS Discourse";
+                                        url = "https://discourse.nixos.org/";
+                                    }
+                                    {
+                                        name = "Home Manager Configuration Options";
+                                        url = "https://nix-community.github.io/home-manager/options.html";
+                                    }
+                                    {
+                                        name = "MyNixOS";
+                                        url = "https://mynixos.com/";
+                                    }
+                                ];
+                            }
                         ];
                     }
                 ];
