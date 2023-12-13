@@ -71,6 +71,7 @@
 
     # System wide packages.
     programs.zsh.enable = true;
+    environment.systemPackages = [ pkgs.nil ];
 
     # Enable flake support.
     nix.settings.experimental-features = [ "flakes" "nix-command" ];
