@@ -17,5 +17,11 @@
         ./shell/zsh/default.nix
     ];
 
+    # Fonts
+    fonts.fontconfig.enable = true;
+    home.packages = [
+        (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    ];
+
     home.stateVersion = "24.05";
 }

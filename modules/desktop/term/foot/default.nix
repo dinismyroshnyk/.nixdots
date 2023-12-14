@@ -2,7 +2,7 @@
 
 with lib;
 
-let 
+let
     cfg = config.modules.foot;
 in {
     options.modules.foot = { enable = mkEnableOption "foot"; };
@@ -10,7 +10,11 @@ in {
         home.packages = with pkgs; [ foot ];
         programs.foot = {
             enable = true;
-            settings = {};
+            settings = {
+                main = {
+                    font = "JetBrainsMono:size=10";
+                };
+            };
         };
     };
 }
