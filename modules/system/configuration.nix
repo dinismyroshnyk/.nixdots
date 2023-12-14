@@ -26,7 +26,12 @@
     };
 
     # Enable networking
-    networking.networkmanager.enable = true;
+    networking.wireless.enable = true;
+    nixpkgs.config.packagesOverride = pkgs: rec {
+        wpa_supplicant = pkgs.wpa_supplicant.overrideAttrs (attrs: {
+            patches = attrs.patches ++ [ ./eduroam.patch ];
+        });
+    };
 
     # Define a user account.
     users.users.dinis = {
