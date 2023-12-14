@@ -9,6 +9,8 @@ let
         notyasho.ocean-high-contrast
         pkief.material-icon-theme
         jnoortheen.nix-ide
+        github.vscode-pull-request-github
+        github.copilot
     ];
 in {
     options.modules.vscode = { enable = mkEnableOption "vscode"; };
@@ -18,11 +20,19 @@ in {
             enableUpdateCheck = false;
             extensions = vscodeExtensions;
             userSettings = {
-                "window.titleBarStyle" = "custom";
-                "window.menuBarVisibility" = "compact";
+                window = {
+                    titleBarStyle = "custom";
+                    menuBarVisibility = "compact";
+                };
+                workbench = {
+                    colorTheme = "Ocean High Contrast";
+                    iconTheme = "material-icon-theme";
+                };
+                editor = {
+                    fontFamily = "'JetBrainsMono NF', 'monospace', monospace";
+                    fontSize = 10;
+                };
                 "security.workspace.trust.untrustedFiles" = "open";
-                "workbench.colorTheme" = "Ocean High Contrast";
-                "workbench.iconTheme" = "material-icon-theme";
                 "nix.enableLanguageServer" = "true";
                 "nix.serverPath" = "nil";
             };

@@ -54,8 +54,8 @@
     environment.variables = {
         NIXOS_CONFIG_DIR = "$HOME/.config/nixos/";
         EDITOR = "nvim";
-        WLR_NO_HARDWARE_CURSORS = "1"; # VirtualBox fix.
-        WLR_RENDERER_ALLOW_SOFTWARE = "1"; # VirtualBox fix.
+        #WLR_NO_HARDWARE_CURSORS = "1"; # VirtualBox fix.
+        #WLR_RENDERER_ALLOW_SOFTWARE = "1"; # VirtualBox fix.
     };
 
     # Enable VirtualBox guest additions.
