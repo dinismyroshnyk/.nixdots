@@ -12,7 +12,7 @@ in {
             enable = true;
             settings = {
                 main = {
-                    font = "JetBrainsMono:size=10";
+                    font = "JetBrainsMono NF:size=10"; 
                 };
             };
         };
