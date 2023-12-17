@@ -2,7 +2,7 @@
 
 with lib;
 
-let 
+let
     cfg = config.modules.vscode;
     vscodeExtensions = with inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
         codescene.codescene-vscode
@@ -11,6 +11,15 @@ let
         jnoortheen.nix-ide
         github.vscode-pull-request-github
         github.copilot
+        github.copilot-chat
+        usernamehw.errorlens
+        oderwat.indent-rainbow
+        bbenoist.nix
+        phind.phind
+        alefragnani.project-manager
+        akhail.save-typing
+        shardulm94.trailing-spaces
+        tomoki1207.pdf
     ];
 in {
     options.modules.vscode = { enable = mkEnableOption "vscode"; };
@@ -31,6 +40,16 @@ in {
                 editor = {
                     fontFamily = "'JetBrainsMono NF', 'monospace', monospace";
                     fontSize = 10;
+                    cursorSurroundingLines = 15;
+                    cursorBlinking = "phase";
+                    cursorStyle = "underline";
+                    cursorSmoothCaretAnimation = true;
+                    bracketPairColorization.enabled = true;
+                    guides.bracketPairs = "active";
+                };
+                terminal.integrated = {
+                    cursorBlinking = true;
+                    cursorStyle = "underline";
                 };
                 "security.workspace.trust.untrustedFiles" = "open";
                 "nix.enableLanguageServer" = "true";
