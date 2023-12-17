@@ -27,11 +27,8 @@
 
     # Enable networking
     networking.networkmanager.enable = true;
-    #networking.wireless = {
-    #    enable = true;
-    #    userControlled.enable = true;
-    #    extraConfig = "openssl_ciphers=DEFAULT@SECLEVEL=0";
-    #};
+    networking.wireless.extraConfig = '' openssl_ciphers=DEFAULT@SECLEVEL=0 '';
+    # incase i need this: nmcli con mod id eduroam 802-1x.phase1-auth-flags 32
 
     # Define a user account.
     users.users.dinis = {
@@ -64,7 +61,7 @@
     };
 
     # Enable VirtualBox guest additions.
-    virtualisation.virtualbox.guest.enable = true;
+    #virtualisation.virtualbox.guest.enable = true;
 
     # Disable prompt for sudo password.
     security.sudo.wheelNeedsPassword = false;
