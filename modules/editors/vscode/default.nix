@@ -32,6 +32,7 @@ in {
                 window = {
                     titleBarStyle = "custom";
                     menuBarVisibility = "compact";
+                    zoomLevel = -1;
                 };
                 workbench = {
                     colorTheme = "Ocean High Contrast";
@@ -39,21 +40,33 @@ in {
                 };
                 editor = {
                     fontFamily = "'JetBrainsMono NF', 'monospace', monospace";
-                    fontSize = 10;
+                    fontLigatures = true;
+                    fontSize = 15;
                     cursorSurroundingLines = 15;
                     cursorBlinking = "phase";
                     cursorStyle = "underline";
                     cursorSmoothCaretAnimation = true;
                     bracketPairColorization.enabled = true;
                     guides.bracketPairs = "active";
+                    minimap.enabled = true;
+                    minimap.renderCharacters = false;
+                    wordWrap = "on";
                 };
                 terminal.integrated = {
                     cursorBlinking = true;
                     cursorStyle = "underline";
+                    fontSize = 15;
                 };
-                "security.workspace.trust.untrustedFiles" = "open";
-                "nix.enableLanguageServer" = "true";
-                "nix.serverPath" = "nil";
+                github.copilot.enable = {
+                    "*" = true;
+                    "plaintext" = true;
+                    "markdown" = true;
+                    "scminput" = false;
+                };
+                security.workspace.trust.untrustedFiles = "open";
+                nix.enableLanguageServer = "true";
+                nix.serverPath = "nil";
+                telemetry.telemetryLevel = "off";
             };
             languageSnippets = {};
         };
