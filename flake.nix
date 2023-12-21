@@ -14,8 +14,8 @@
         nur.url = "github:nix-community/NUR";
     };
 
-    outputs = {nixpkgs, home-manager, nur, ... }@inputs: 
-        let 
+    outputs = {nixpkgs, home-manager, nur, ... }@inputs:
+        let
             system = "x86_64-linux";
             pkgs = inputs.nixpkgs.legacyPackages.${system};
             lib = pkgs.lib;

@@ -29,6 +29,11 @@
     networking.networkmanager.enable = true;
     networking.wireless.extraConfig = '' openssl_ciphers=DEFAULT@SECLEVEL=0 '';
     # incase i need this: nmcli con mod id eduroam 802-1x.phase1-auth-flags 32
+    nixpkgs.config.packageOverrides = pkgs: rec {
+        wpa_supplicant = pkgs.wpa_supplicant.overrideAttrs (attrs: {
+            patches = attrs.patches ++ [ ./eduroam.patch ];
+        });
+    };
 
     # Define a user account.
     users.users.dinis = {
@@ -58,6 +63,14 @@
         EDITOR = "nvim";
         #WLR_NO_HARDWARE_CURSORS = "1"; # VirtualBox fix.
         #WLR_RENDERER_ALLOW_SOFTWARE = "1"; # VirtualBox fix.
+    };
+
+    # Enable xdg-portals.
+    xdg.portal = {
+        enable = true;
+	extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+        xdgOpenUsePortal = true;
+        config.common.default = "gtk";
     };
 
     # Enable VirtualBox guest additions.

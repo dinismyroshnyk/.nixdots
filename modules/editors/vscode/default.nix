@@ -14,12 +14,12 @@ let
         github.copilot-chat
         usernamehw.errorlens
         oderwat.indent-rainbow
-        bbenoist.nix
         phind.phind
         alefragnani.project-manager
         akhail.save-typing
         shardulm94.trailing-spaces
         tomoki1207.pdf
+        drcika.apc-extension
     ];
 in {
     options.modules.vscode = { enable = mkEnableOption "vscode"; };
@@ -29,44 +29,42 @@ in {
             enableUpdateCheck = false;
             extensions = vscodeExtensions;
             userSettings = {
-                window = {
-                    titleBarStyle = "custom";
-                    menuBarVisibility = "compact";
-                    zoomLevel = -1;
-                };
-                workbench = {
-                    colorTheme = "Ocean High Contrast";
-                    iconTheme = "material-icon-theme";
-                };
-                editor = {
-                    fontFamily = "'JetBrainsMono NF', 'monospace', monospace";
-                    fontLigatures = true;
-                    fontSize = 15;
-                    cursorSurroundingLines = 15;
-                    cursorBlinking = "phase";
-                    cursorStyle = "underline";
-                    cursorSmoothCaretAnimation = true;
-                    bracketPairColorization.enabled = true;
-                    guides.bracketPairs = "active";
-                    minimap.enabled = true;
-                    minimap.renderCharacters = false;
-                    wordWrap = "on";
-                };
-                terminal.integrated = {
-                    cursorBlinking = true;
-                    cursorStyle = "underline";
-                    fontSize = 15;
-                };
-                github.copilot.enable = {
+                "window.titleBarStyle" = "custom";
+                "window.menuBarVisibility" = "compact";
+                "window.zoomLevel" = -1;
+
+                "workbench.colorTheme" = "Ocean High Contrast";
+                "workbench.iconTheme" = "material-icon-theme";
+
+                "editor.fontFamily" = "'JetBrainsMono NF', 'monospace', monospace";
+                "editor.fontLigatures" = true;
+                "editor.fontSize" = 12;
+                "editor.cursorSurroundingLines" = 15;
+                "editor.cursorBlinking" = "phase";
+                "editor.cursorStyle" = "underline";
+                "editor.cursorSmoothCaretAnimation" = true;
+                "editor.bracketPairColorization.enabled" = true;
+                "editor.guides.bracketPairs" = "active";
+                "editor.minimap.enabled" = true;
+                "editor.minimap.renderCharacters" = false;
+                "editor.wordWrap" = "on";
+
+                "terminal.integrated.cursorBlinking" = true;
+                "terminal.integrated.cursorStyle" = "underline";
+                "terminal.integrated.fontSize" = 12;
+
+                "github.copilot.enable" = {
                     "*" = true;
                     "plaintext" = true;
                     "markdown" = true;
                     "scminput" = false;
                 };
-                security.workspace.trust.untrustedFiles = "open";
-                nix.enableLanguageServer = "true";
-                nix.serverPath = "nil";
-                telemetry.telemetryLevel = "off";
+
+                "nix.enableLanguageServer" = true;
+                "nix.serverPath" = "nil";
+
+                "security.workspace.trust.untrustedFiles" = "open";
+                "telemetry.telemetryLevel" = "off";
             };
             languageSnippets = {};
         };
