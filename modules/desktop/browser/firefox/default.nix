@@ -10,7 +10,6 @@ in {
         programs.firefox = {
             package = pkgs.firefox-devedition-bin;
             enable = true;
-            policies = {};
             profiles.dinis = {
                 isDefault = true;
                 path = "$HOME/.mozila/firefox";
@@ -38,34 +37,9 @@ in {
                     "extensions.pocket.enabled" = false;
                     # Theming
                     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+                    "reader.parse-on-load.enabled" = false;
+                    "browser.tabs.firefox-view" = false;
                 };
-                bookmarks = [
-                    {
-                        name = "Toolbar";
-                        toolbar = true;
-                        bookmarks = [
-                            {
-                                name = "ESTGOH";
-                                bookmarks = [
-                                    { name = "Inforestudante"; url = "https://inforestudante.ipc.pt/nonio/security/login.do"; }
-                                    { name = "SOGo"; url = "https://mailsecure.estgoh.ipc.pt/SOGo"; }
-                                    { name = "Moodle"; url = "https://elearning2.estgoh.ipc.pt/login"; }
-                                    { name = "Cisco Academy"; url = "https://id.cisco.com/signin"; }
-                                ];
-                            }
-                            {
-                                name = "NixOS";
-                                bookmarks = [
-                                    { name = "NixOS"; url = "https://nixos.org/"; }
-                                    { name = "NixOS Wiki"; url = "https://nixos.wiki/"; }
-                                    { name = "NixOS Discourse"; url = "https://discourse.nixos.org/"; }
-                                    { name = "Home Manager Options"; url = "https://nix-community.github.io/home-manager/options.html"; }
-                                    { name = "MyNixOS"; url = "https://mynixos.com/"; }
-                                ];
-                            }
-                        ];
-                    }
-                ];
                 userChrome = lib.readFile ./userChrome.css;
                 userContent = ""; # user content css - web pages
                 extraConfig = ""; # user.js

@@ -110,7 +110,7 @@
   /* #identity-box { display: none !important } */
 
 /* Hide everything BUT the zoom indicator within the URL Bar */
-/* #page-action-buttons > :not(#urlbar-zoom-button) { display: none !important; } */
+#page-action-buttons > :not(#urlbar-zoom-button) { display: none !important; }
 
 /* Hide the »Go«-arrow in the URL Bar */
 #urlbar-go-button { display: none !important; }
@@ -138,7 +138,7 @@
    *  possible values:
    *  show: -moz-inline-block
    *  hide: none
-   */ --show-tab-close-button-hover: none;
+   */ --show-tab-close-button-hover: -moz-inline-block;
 
   /*  Hide the all Tabs button from the Tab Bar
    *  possible values:
@@ -459,7 +459,13 @@
 #TabsToolbar .tab-icon-overlay:not([crashed])[muted]:hover,
 #TabsToolbar .tab-icon-overlay:not([crashed])[activemedia-blocked]:hover { color: var(--toolbar-bgcolor) !important; }
 
-/* selected tab colour fix*/
+/* selected tab colour fix */
 .tabbrowser-tab[selected] .tab-content {
   background-color: var(--uc-highlight-colour) !important;
+}
+
+/* some personal settings */
+#bookmarksToolbarFolderMenu, #menu_unsortedBookmarks {display:none !important;}
+#PersonalToolbar {
+  display: none !important;
 }
