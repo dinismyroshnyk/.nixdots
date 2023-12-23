@@ -2,7 +2,7 @@
 
 with lib;
 
-let 
+let
     cfg = config.modules.firefox;
 in {
     options.modules.firefox = { enable = mkEnableOption "firefox"; };
@@ -36,6 +36,8 @@ in {
                     "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
                     "browser.newtabpage.activity-stream.showSponsored" = false;
                     "extensions.pocket.enabled" = false;
+                    # Theming
+                    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
                 };
                 bookmarks = [
                     {
@@ -64,7 +66,7 @@ in {
                         ];
                     }
                 ];
-                userChrome = ""; # user chrome css - user interface
+                userChrome = lib.readFile ./chrome/userChrome;
                 userContent = ""; # user content css - web pages
                 extraConfig = ""; # user.js
             };
@@ -72,6 +74,7 @@ in {
         home.sessionVariables = {
             MOZ_ENABLE_WAYLAND = "1";
             MOZ_USE_XINPUT2 = "1";
+            BROWSER = "firefox-developer-edition";
         };
     };
 }

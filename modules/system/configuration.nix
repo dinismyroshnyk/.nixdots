@@ -40,7 +40,7 @@
         shell = pkgs.zsh;
         isNormalUser = true;
         description = "Dinis Myroshnyk";
-        extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
+        extraGroups = [ "networkmanager" "wheel" ];
     };
 
     # Set your time zone.
@@ -60,28 +60,37 @@
     # Set environment variables.
     environment.variables = {
         NIXOS_CONFIG_DIR = "$HOME/.config/nixos/";
-        EDITOR = "nvim";
-        #WLR_NO_HARDWARE_CURSORS = "1"; # VirtualBox fix.
-        #WLR_RENDERER_ALLOW_SOFTWARE = "1"; # VirtualBox fix.
+        # XDG_DATA_HOME = "$HOME/.local/share";
+        EDITOR = "code";
     };
 
     # Enable xdg-portals.
-    xdg.portal = {
-        enable = true;
-	extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-        xdgOpenUsePortal = true;
-        config.common.default = "gtk";
-    };
-
-    # Enable VirtualBox guest additions.
-    #virtualisation.virtualbox.guest.enable = true;
+    # xdg.portal = {
+    #     enable = true;
+    #     # wlr.enable = true;
+	#     extraPortals = with pkgs; [
+    #         # xdg-desktop-portal-wlr
+    #         xdg-desktop-portal-gtk
+    #     ];
+    #     xdgOpenUsePortal = true;
+    #     config.common.default = "gtk";
+    # };
+    # xdg.portal = {
+    #     enable = true;
+    #     wlr.enable = true;
+    #     xdgOpenUsePortal = true;
+    #     config.common.default = "*";
+    # };
 
     # Disable prompt for sudo password.
     security.sudo.wheelNeedsPassword = false;
 
     # System wide packages.
     programs.zsh.enable = true;
-    environment.systemPackages = [ pkgs.nil ];
+    environment.systemPackages = with pkgs; [
+        nil
+        # xdg-utils
+    ];
 
     # Enable flake support.
     nix.settings.experimental-features = [ "flakes" "nix-command" ];
