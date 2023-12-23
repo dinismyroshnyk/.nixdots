@@ -68,5 +68,28 @@ in {
             };
             languageSnippets = {};
         };
+        home.activation = {
+            clearOldSettings = {
+                after = [];
+                before = [ "checkLinkTargets" ];
+                data = "
+                    userDir=$HOME/.config/Code/User
+                    rm -rf $userDir/settings.json
+                ";
+            };
+            regenerateSettings =
+                let
+                    inherit (config) programs;
+                    userSettings = programs.vscode.userSettings;
+                in {
+                    after = [ "writeBoundary" ];
+                    before = [];
+                    data = ''
+                        userDir=~/.config/Code/User
+                        rm -rf $userDir/settings.json
+                        cat ${pkgs.writeText "tmp_vscode_settings" (builtins.toJSON userSettings)} | jq --monochrome-output > $userDir/settings.json
+                    '';
+                };
+        };
     };
 }

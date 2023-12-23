@@ -66,7 +66,7 @@ in {
                         ];
                     }
                 ];
-                userChrome = lib.readFile ./chrome/userChrome;
+                userChrome = lib.readFile ./userChrome.css;
                 userContent = ""; # user content css - web pages
                 extraConfig = ""; # user.js
             };
