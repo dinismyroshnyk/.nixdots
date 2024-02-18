@@ -28,7 +28,6 @@
     # Enable networking
     networking.networkmanager.enable = true;
     networking.wireless.extraConfig = '' openssl_ciphers=DEFAULT@SECLEVEL=0 '';
-    # incase i need this: nmcli con mod id eduroam 802-1x.phase1-auth-flags 32
     nixpkgs.config.packageOverrides = pkgs: rec {
         wpa_supplicant = pkgs.wpa_supplicant.overrideAttrs (attrs: {
             patches = attrs.patches ++ [ ./eduroam.patch ];
@@ -65,22 +64,26 @@
     };
 
     # Enable xdg-portals.
-    # xdg.portal = {
-    #     enable = true;
-    #     # wlr.enable = true;
-	#     extraPortals = with pkgs; [
-    #         # xdg-desktop-portal-wlr
-    #         xdg-desktop-portal-gtk
-    #     ];
-    #     xdgOpenUsePortal = true;
-    #     config.common.default = "gtk";
-    # };
-    # xdg.portal = {
-    #     enable = true;
-    #     wlr.enable = true;
-    #     xdgOpenUsePortal = true;
-    #     config.common.default = "*";
-    # };
+    xdg.portal = {
+        enable = true;
+        wlr.enable = true;
+	    extraPortals = with pkgs; [
+            xdg-desktop-portal-wlr
+            xdg-desktop-portal-gtk
+        ];
+        xdgOpenUsePortal = true;
+        config.common.default = ["gtk" "wlr"];
+    };
+
+    # Enable xdg-mime.
+    xdg.mime = {
+        enable = true;
+        defaultApplications = {
+            "x-scheme-handler/http" = [./firefox-dev.desktop];
+            "x-scheme-handler/https" = [./firefox-dev.desktop];
+            "text/html" = [./firefox-dev.desktop];
+        };
+    };
 
     # Disable prompt for sudo password.
     security.sudo.wheelNeedsPassword = false;
@@ -89,11 +92,20 @@
     programs.zsh.enable = true;
     environment.systemPackages = with pkgs; [
         nil
-        # xdg-utils
+        xdg-utils
     ];
 
     # Enable flake support.
     nix.settings.experimental-features = [ "flakes" "nix-command" ];
+
+    # SSH config.
+    programs.ssh.extraConfig = "
+        Host estgoh.ipc.pt
+            SetEnv TERM=xterm-256color
+	        KexAlgorithms diffie-hellman-group1-sha1
+            HostKeyAlgorithms ssh-rsa,ssh-dss
+            Ciphers aes128-cbc
+    ";
 
     # System state version.
     system.stateVersion = "24.05";

@@ -2,7 +2,7 @@
 
 with lib;
 
-let 
+let
     cfg = config.modules.zsh;
 in {
     options.modules.zsh = { enable = mkEnableOption "zsh"; };

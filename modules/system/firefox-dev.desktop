@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Firefox Developer Edition (Dinis)
+Exec=firefox-developer-edition -P dinis %U
+Terminal=false
+Type=Application
+MimeType=text/html;
+Categories=Network;WebBrowser;

@@ -12,7 +12,7 @@ in {
             enable = true;
             profiles.dinis = {
                 isDefault = true;
-                path = "$HOME/.mozila/firefox";
+                # path = "/home/dinis/.mozila/firefox";
                 extensions = with pkgs.nur.repos.rycee.firefox-addons; [
                     ublock-origin
                     sponsorblock
@@ -38,7 +38,11 @@ in {
                     # Theming
                     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
                     "reader.parse-on-load.enabled" = false;
+                    # Disable Firefox View
                     "browser.tabs.firefox-view" = false;
+                    # Enable Extensions
+                    # "extensions.webextensions.ExtensionStorageIDB.migrated.uBlock0@raymondhill.net" = true;
+                    # "extensions.webextensions.ExtensionStorageIDB.migrated.sponsorBlocker@ajay.app" = true;
                 };
                 userChrome = lib.readFile ./userChrome.css;
                 userContent = ""; # user content css - web pages
