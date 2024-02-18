@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Firefox Developer Edition (Dinis)
-Exec=firefox-developer-edition -P dinis %U
+Name=Firefox
+Exec=firefox
 Terminal=false
 Type=Application
 MimeType=text/html;

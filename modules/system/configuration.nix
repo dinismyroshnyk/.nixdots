@@ -79,9 +79,9 @@
     xdg.mime = {
         enable = true;
         defaultApplications = {
-            "x-scheme-handler/http" = [./firefox-dev.desktop];
-            "x-scheme-handler/https" = [./firefox-dev.desktop];
-            "text/html" = [./firefox-dev.desktop];
+            "x-scheme-handler/http" = [./firefox.desktop];
+            "x-scheme-handler/https" = [./firefox.desktop];
+            "text/html" = [./firefox.desktop];
         };
     };
 

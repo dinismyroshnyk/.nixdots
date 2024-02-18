@@ -8,11 +8,10 @@ in {
     options.modules.firefox = { enable = mkEnableOption "firefox"; };
     config = mkIf cfg.enable {
         programs.firefox = {
-            package = pkgs.firefox-devedition-bin;
+            package = pkgs.firefox-bin;
             enable = true;
             profiles.dinis = {
                 isDefault = true;
-                # path = "/home/dinis/.mozila/firefox";
                 extensions = with pkgs.nur.repos.rycee.firefox-addons; [
                     ublock-origin
                     sponsorblock
@@ -52,7 +51,7 @@ in {
         home.sessionVariables = {
             MOZ_ENABLE_WAYLAND = "1";
             MOZ_USE_XINPUT2 = "1";
-            BROWSER = "firefox-developer-edition";
+            BROWSER = "firefox";
         };
     };
 }
