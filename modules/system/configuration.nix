@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
     # Import configurations.
@@ -8,7 +8,7 @@
 
     # Enable GRUB bootloader.
     boot = {
-        kernelPackages = pkgs.linuxPackages;
+        kernelPackages = pkgs.linuxPackages_latest;
         loader = {
             efi = {
                 canTouchEfiVariables = true;
@@ -25,13 +25,23 @@
         };
     };
 
-    # Enable networking
+    # Enable networking.
     networking.networkmanager.enable = true;
     networking.wireless.extraConfig = '' openssl_ciphers=DEFAULT@SECLEVEL=0 '';
-    nixpkgs.config.packageOverrides = pkgs: rec {
+    nixpkgs.config.packageOverrides = pkgs: {
         wpa_supplicant = pkgs.wpa_supplicant.overrideAttrs (attrs: {
             patches = attrs.patches ++ [ ./eduroam.patch ];
         });
+    };
+
+    # Enable pulseaudio.
+    security.rtkit.enable = true;
+    services.pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
     };
 
     # Define a user account.
@@ -59,7 +69,6 @@
     # Set environment variables.
     environment.variables = {
         NIXOS_CONFIG_DIR = "$HOME/.config/nixos/";
-        # XDG_DATA_HOME = "$HOME/.local/share";
         EDITOR = "code";
     };
 
@@ -75,16 +84,6 @@
         config.common.default = ["gtk" "wlr"];
     };
 
-    # Enable xdg-mime.
-    xdg.mime = {
-        enable = true;
-        defaultApplications = {
-            "x-scheme-handler/http" = [./firefox.desktop];
-            "x-scheme-handler/https" = [./firefox.desktop];
-            "text/html" = [./firefox.desktop];
-        };
-    };
-
     # Disable prompt for sudo password.
     security.sudo.wheelNeedsPassword = false;
 
@@ -93,7 +92,19 @@
     environment.systemPackages = with pkgs; [
         nil
         xdg-utils
+        jdk21
     ];
+
+    # Enable MySQL server.
+    services.mysql = {
+        # To add a root password, do the following:
+        # As superuser, run `mysql -u root`
+        # Inside the MySQL shell, run `ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';`
+        # Then, run `FLUSH PRIVILEGES;`
+        # The password is now set.
+        enable = true;
+        package = pkgs.mysql;
+    };
 
     # Enable flake support.
     nix.settings.experimental-features = [ "flakes" "nix-command" ];
