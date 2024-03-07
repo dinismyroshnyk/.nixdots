@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 
 with lib;
 
@@ -11,7 +11,7 @@ in {
             enable = true;
             # enableNvidiaPatches = true; no longer needed
             xwayland.enable = true;
-            extraConfig = lib.readFile ./hyprland.conf;
+	        extraConfig = lib.readFile ./hyprland.conf;
             systemd.enable = true;
         };
         home.sessionVariables = {

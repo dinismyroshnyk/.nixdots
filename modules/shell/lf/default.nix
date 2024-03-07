@@ -1,8 +1,8 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 
 with lib;
 
-let 
+let
     cfg = config.modules.lf;
 in {
     options.modules.lf = { enable = mkEnableOption "lf"; };

@@ -1,8 +1,8 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 
 with lib;
 
-let 
+let
     cfg = config.modules.git;
 in {
     options.modules.git = { enable = mkEnableOption "git"; };

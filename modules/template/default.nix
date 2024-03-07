@@ -1,8 +1,8 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 
 with lib;
 
-let 
+let
     cfg = config.modules.PROGRAM_NAME;
 in {
     options.modules.PROGRAM_NAME = { enable = mkEnableOption "PROGRAM_NAME"; };

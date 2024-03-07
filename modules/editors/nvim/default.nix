@@ -1,8 +1,8 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 
 with lib;
 
-let 
+let
     cfg = config.modules.nvim;
 in {
     options.modules.nvim = { enable = mkEnableOption "nvim"; };

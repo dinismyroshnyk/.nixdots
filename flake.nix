@@ -7,18 +7,12 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        nix-vscode-extensions = {
-            url = "github:nix-community/nix-vscode-extensions";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
         nur.url = "github:nix-community/NUR";
     };
 
     outputs = {nixpkgs, home-manager, nur, ... }@inputs:
         let
             system = "x86_64-linux";
-            pkgs = inputs.nixpkgs.legacyPackages.${system};
-            lib = pkgs.lib;
             mkSystem = pkgs: system: hostname:
                 pkgs.lib.nixosSystem {
                     system = system;
@@ -43,7 +37,6 @@
                 };
         in {
             nixosConfigurations = {
-                vm-test = mkSystem nixpkgs system "vm-test";
                 omen-15 = mkSystem nixpkgs system "omen-15";
             };
     	};
