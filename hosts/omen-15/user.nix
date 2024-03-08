@@ -9,6 +9,7 @@
         nvim.enable = true;
         lf.enable = true;
         hyprland.enable = true;
+        waybar.enable = true;
         foot.enable = true;
         firefox.enable = true;
         vscode.enable = true;
