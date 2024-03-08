@@ -6,6 +6,7 @@
         ./desktop/browser/firefox/default.nix
         ./desktop/term/foot/default.nix
         ./desktop/wayland/hyprland/default.nix
+        ./desktop/wayland/waybar/default.nix
         # Dev
         # Editors
         ./editors/nvim/default.nix
