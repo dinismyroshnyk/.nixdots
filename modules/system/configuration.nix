@@ -25,6 +25,16 @@
         };
     };
 
+    # Enable Hyprland on system-level to be detected by SDDM.
+    programs.hyprland.enable = true;
+
+    # Enable SDDM display manager.
+    services.xserver = {
+        enable = true;
+        displayManager.sddm.enable = true;
+        displayManager.sddm.wayland.enable = true;
+    };
+
     # Enable networking.
     networking.networkmanager.enable = true;
     networking.wireless.extraConfig = '' openssl_ciphers=DEFAULT@SECLEVEL=0 '';
@@ -70,6 +80,7 @@
     environment.variables = {
         NIXOS_CONFIG_DIR = "$HOME/.config/nixos/";
         EDITOR = "code";
+        QT_QPA_PLATFORM = "wayland";
     };
 
     # Enable xdg-portals.
@@ -93,6 +104,10 @@
         nil
         xdg-utils
         jdk21
+        onlyoffice-bin_latest
+        btop
+        neofetch
+        discord
     ];
 
     # Enable MySQL server.
