@@ -7,7 +7,7 @@
         ./desktop/term/foot/default.nix
         ./desktop/wayland/hyprland/default.nix
         ./desktop/wayland/waybar/default.nix
-        ./desktop/wayland/rofi/default.nix
+        ./desktop/rofi/default.nix
         # Dev
         # Editors
         ./editors/nvim/default.nix
