@@ -13,5 +13,6 @@
         foot.enable = true;
         firefox.enable = true;
         vscode.enable = true;
+        rofi.enable = true;
     };
 }
