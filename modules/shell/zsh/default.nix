@@ -18,6 +18,7 @@ in {
                 rebuild = "sudo nixos-rebuild switch --flake $NIXOS_CONFIG_DIR#$HOSTNAME";
                 update = "nix flake update $NIXOS_CONFIG_DIR";
                 upgrade = "update; rebuild";
+                cls = "clear";
             };
         };
     };
