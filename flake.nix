@@ -28,7 +28,7 @@
                                 useUserPackages = true;
                                 useGlobalPkgs = true;
                                 extraSpecialArgs = { inherit inputs; };
-                                users.dinis = ./hosts/${hostname}/user.nix;
+                                users.dinis = ./hosts/${hostname}/user-config.nix;
                             };
                             nixpkgs.overlays = [ nur.overlay ];
                         }

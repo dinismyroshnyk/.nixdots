@@ -3,20 +3,20 @@
 {
     imports = [
         # Desktop
-        ./desktop/browser/firefox/default.nix
-        ./desktop/term/foot/default.nix
-        ./desktop/wayland/hyprland/default.nix
-        ./desktop/wayland/waybar/default.nix
-        ./desktop/rofi/default.nix
+        ./home/desktop/browser/firefox/default.nix
+        ./home/desktop/term/foot/default.nix
+        ./home/desktop/apps/hyprland/default.nix
+        ./home/desktop/apps/waybar/default.nix
+        ./home/desktop/apps/rofi/default.nix
         # Dev
         # Editors
-        ./editors/nvim/default.nix
-        ./editors/vscode/default.nix
+        ./home/editors/nvim/default.nix
+        ./home/editors/vscode/default.nix
         # Secrets
         # Shell
-        ./shell/git/default.nix
-        ./shell/lf/default.nix
-        ./shell/zsh/default.nix
+        ./home/shell/git/default.nix
+        ./home/shell/lf/default.nix
+        ./home/shell/zsh/default.nix
     ];
 
     # Fonts
