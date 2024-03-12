@@ -20,7 +20,7 @@
                         { networking.hostName = hostname; }
                         { environment.variables.HOSTNAME = hostname; }
                         { nixpkgs.config.allowUnfree = true; }
-                        ./modules/system/configuration.nix
+                        ./modules/core/configuration.nix
                         ./hosts/${hostname}/hardware-configuration.nix
                         home-manager.nixosModules.home-manager
                         {
