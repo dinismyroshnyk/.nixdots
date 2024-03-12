@@ -4,11 +4,20 @@
     # Import configurations.
     imports = [
         ./nvidia.nix
+        ./greetd.nix
     ];
+
+    # Disable unnecessary packages.
+    programs.nano.enable = false;
+    services.xserver.excludePackages = with pkgs; [ xterm ];
+
+    # Power management.
+    powerManagement.enable = true;
+    services.tlp.enable = true;
 
     # Enable GRUB bootloader.
     boot = {
-        kernelPackages = pkgs.linuxPackages_latest;
+        kernelPackages = pkgs.linuxPackages_testing;
         loader = {
             efi = {
                 canTouchEfiVariables = true;
@@ -26,17 +35,11 @@
     };
 
     # Enable Hyprland on system-level to be detected by SDDM.
-    programs.hyprland.enable = true;
-
-    # Enable SDDM display manager.
-    services.xserver = {
-        enable = true;
-        displayManager.sddm.enable = true;
-        displayManager.sddm.wayland.enable = true;
-    };
+    # programs.hyprland.enable = true;
 
     # Enable networking.
     networking.networkmanager.enable = true;
+    programs.nm-applet.enable = true;
     networking.wireless.extraConfig = '' openssl_ciphers=DEFAULT@SECLEVEL=0 '';
     nixpkgs.config.packageOverrides = pkgs: {
         wpa_supplicant = pkgs.wpa_supplicant.overrideAttrs (attrs: {
@@ -59,7 +62,7 @@
         shell = pkgs.zsh;
         isNormalUser = true;
         description = "Dinis Myroshnyk";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "video" ];
     };
 
     # Set your time zone.
@@ -103,11 +106,13 @@
     environment.systemPackages = with pkgs; [
         nil
         xdg-utils
+        alsa-utils
+        light
         jdk21
-        onlyoffice-bin_latest
         btop
         neofetch
         discord
+        steam
     ];
 
     # Enable MySQL server.
