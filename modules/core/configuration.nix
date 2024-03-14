@@ -7,6 +7,9 @@
         ./greetd.nix
     ];
 
+    # Enable backlight control.
+    programs.light.enable = true;
+
     # Disable unnecessary packages.
     programs.nano.enable = false;
     services.xserver.excludePackages = with pkgs; [ xterm ];
@@ -108,7 +111,6 @@
         nil
         xdg-utils
         alsa-utils
-        light
         jdk21
         btop
         neofetch
