@@ -2,6 +2,7 @@
     description = "My first flake!";
 
     inputs = {
+        hyprland.url = "github:hyprwm/Hyprland";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         home-manager = {
             url = "github:nix-community/home-manager";
@@ -10,7 +11,7 @@
         nur.url = "github:nix-community/NUR";
     };
 
-    outputs = {nixpkgs, home-manager, nur, ... }@inputs:
+    outputs = {hyprland, nixpkgs, home-manager, nur, ... }@inputs:
         let
             system = "x86_64-linux";
             mkSystem = pkgs: system: hostname:

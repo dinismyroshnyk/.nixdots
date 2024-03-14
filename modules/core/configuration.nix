@@ -34,8 +34,9 @@
         };
     };
 
-    # Enable Hyprland on system-level to be detected by SDDM.
-    # programs.hyprland.enable = true;
+    # Enable gnome keyring.
+    services.gnome.gnome-keyring.enable = true;
+    security.polkit.enable = true;
 
     # Enable networking.
     networking.networkmanager.enable = true;
