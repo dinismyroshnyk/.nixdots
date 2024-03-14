@@ -14,7 +14,7 @@ in {
             userSettings = {
                 "window.titleBarStyle" = "custom";
                 "window.menuBarVisibility" = "compact";
-                "window.zoomLevel" = -1;
+                "window.zoomLevel" = 1;
 
                 "workbench.colorTheme" = "Ocean High Contrast";
                 "workbench.iconTheme" = "material-icon-theme";
