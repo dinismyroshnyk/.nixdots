@@ -44,7 +44,6 @@
     # Enable networking.
     networking.networkmanager.enable = true;
     programs.nm-applet.enable = true;
-    # networking.wireless.extraConfig = '' openssl_ciphers=DEFAULT@SECLEVEL=0 '';
     nixpkgs.config.packageOverrides = pkgs: {
         wpa_supplicant = pkgs.wpa_supplicant.overrideAttrs (attrs: {
             patches = attrs.patches ++ [ ./eduroam.patch ];
@@ -112,6 +111,8 @@
         xdg-utils
         alsa-utils
         jdk21
+        zig
+        zls
         btop
         neofetch
         discord
