@@ -44,7 +44,7 @@
     # Enable networking.
     networking.networkmanager.enable = true;
     programs.nm-applet.enable = true;
-    networking.wireless.extraConfig = '' openssl_ciphers=DEFAULT@SECLEVEL=0 '';
+    # networking.wireless.extraConfig = '' openssl_ciphers=DEFAULT@SECLEVEL=0 '';
     nixpkgs.config.packageOverrides = pkgs: {
         wpa_supplicant = pkgs.wpa_supplicant.overrideAttrs (attrs: {
             patches = attrs.patches ++ [ ./eduroam.patch ];
@@ -116,6 +116,8 @@
         neofetch
         discord
         steam
+        beekeeper-studio
+        youtube-music
     ];
 
     # Enable MySQL server.

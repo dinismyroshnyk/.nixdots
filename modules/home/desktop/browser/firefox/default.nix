@@ -17,7 +17,6 @@ in {
                     sponsorblock
                     return-youtube-dislikes
                     youtube-nonstop
-                    improved-tube
                 ];
                 settings = {
                     # Disable telemetry

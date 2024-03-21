@@ -57,6 +57,10 @@ in {
                 "typewriterAutoScroll.enable" = true;
 
                 "sqltools.autoOpenSessionFiles" = false;
+
+                "java.debug.settings.console" = "integratedTerminal";
+
+                "terminal.external.linuxExec" = "foot";
             };
             languageSnippets = {};
         };
