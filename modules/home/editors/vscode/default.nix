@@ -61,6 +61,8 @@ in {
                 "java.debug.settings.console" = "integratedTerminal";
 
                 "terminal.external.linuxExec" = "foot";
+
+                "zig.formattingProvider" = "off";
             };
             languageSnippets = {};
         };
