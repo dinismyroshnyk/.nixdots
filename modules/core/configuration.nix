@@ -144,10 +144,6 @@
             Ciphers aes128-cbc
     ";
 
-    # Enable VirtualBox.
-    virtualisation.virtualbox.host.enable = true;
-    users.extraGroups.vboxusers.members = [ "dinis" ];
-
     # System state version.
     system.stateVersion = "24.05";
 }
