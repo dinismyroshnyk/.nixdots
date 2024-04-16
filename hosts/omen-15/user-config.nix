@@ -5,7 +5,7 @@
 
     config.modules = {
         git.enable = true;
-        zsh.enable = true;
+        nushell.enable = true;
         nvim.enable = true;
         lf.enable = true;
         hyprland.enable = true;

@@ -62,7 +62,7 @@
 
     # Define a user account.
     users.users.dinis = {
-        shell = pkgs.zsh;
+        shell = pkgs.nushell;
         isNormalUser = true;
         description = "Dinis Myroshnyk";
         extraGroups = [ "networkmanager" "wheel" "video" ];
@@ -143,6 +143,10 @@
             HostKeyAlgorithms ssh-rsa,ssh-dss
             Ciphers aes128-cbc
     ";
+
+    # Enable VirtualBox.
+    virtualisation.virtualbox.host.enable = true;
+    users.extraGroups.vboxusers.members = [ "dinis" ];
 
     # System state version.
     system.stateVersion = "24.05";

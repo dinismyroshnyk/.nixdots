@@ -63,6 +63,9 @@ in {
                 "terminal.external.linuxExec" = "foot";
 
                 "zig.formattingProvider" = "off";
+                "zig.path" = "/run/current-system/sw/bin/zig";
+                "zig.zls.path" = "/run/current-system/sw/bin/zls";
+                "zig.initialSetupDone" = true;
             };
             languageSnippets = {};
         };
