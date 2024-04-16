@@ -5,9 +5,9 @@ with lib;
 let
     cfg = config.modules.nushell;
 in {
-    options.modules.zsh = { enable = mkEnableOption "nushell"; };
+    options.modules.nushell = { enable = mkEnableOption "nushell"; };
     config = mkIf cfg.enable {
-        home.packages = with pkgs; [ zsh ];
+        home.packages = with pkgs; [ nushell ];
         programs.nushell = {
             enable = true;
             extraConfig = '''';
