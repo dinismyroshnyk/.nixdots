@@ -16,7 +16,7 @@
         # Shell
         ./home/shell/git/default.nix
         ./home/shell/lf/default.nix
-        ./home/shell/nushell/default.nix
+        ./home/shell/zsh/default.nix
     ];
 
     # Fonts
