@@ -62,7 +62,7 @@
 
     # Define a user account.
     users.users.dinis = {
-        shell = pkgs.nushell;
+        shell = pkgs.zsh;
         isNormalUser = true;
         description = "Dinis Myroshnyk";
         extraGroups = [ "networkmanager" "wheel" "video" ];
