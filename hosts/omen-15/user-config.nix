@@ -14,5 +14,6 @@
         firefox.enable = true;
         vscode.enable = true;
         rofi.enable = true;
+        tmux.enable = true;
     };
 }

@@ -8,6 +8,7 @@
         ./home/desktop/apps/hyprland/default.nix
         ./home/desktop/apps/waybar/default.nix
         ./home/desktop/apps/rofi/default.nix
+        ./home/desktop/apps/tmux/default.nix
         # Dev
         # Editors
         ./home/editors/nvim/default.nix
