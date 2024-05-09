@@ -18,6 +18,7 @@
         ./home/shell/git/default.nix
         ./home/shell/lf/default.nix
         ./home/shell/zsh/default.nix
+        ./home/shell/starship/default.nix
     ];
 
     # Fonts

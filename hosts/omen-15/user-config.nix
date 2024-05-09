@@ -15,5 +15,6 @@
         vscode.enable = true;
         rofi.enable = true;
         tmux.enable = true;
+        starship.enable = true;
     };
 }
