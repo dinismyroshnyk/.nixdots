@@ -2,7 +2,7 @@
     description = "My first flake!";
 
     inputs = {
-        hyprland.url = "github:hyprwm/Hyprland";
+        hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         home-manager = {
             url = "github:nix-community/home-manager";

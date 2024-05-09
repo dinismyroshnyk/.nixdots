@@ -16,7 +16,7 @@
                 enableOffloadCmd = true;
             };
         };
-        open = true;
+        #open = true;
         nvidiaSettings = true;
     };
     services.xserver.videoDrivers = [ "nvidia" ];
