@@ -18,6 +18,21 @@
     powerManagement.enable = true;
     services.tlp.enable = true;
 
+    # Enable gvfs, dbus and fstrim.
+    services = {
+        gvfs.enable = true;
+        dbus.enable = true;
+        fstrim.enable = true;
+    };
+
+    # Enable dconf and gnupg.
+    programs.dconf.enable = true;
+    programs.gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
+        # pinentryFlavor = "";
+    };
+
     # Enable GRUB bootloader.
     boot = {
         kernelPackages = pkgs.linuxPackages_testing;

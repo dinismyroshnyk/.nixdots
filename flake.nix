@@ -3,15 +3,20 @@
 
     inputs = {
         hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+        hyprlock.url = "github:hyprwm/Hyprlock";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         nur.url = "github:nix-community/NUR";
+        catppuccin-starship = {
+            url = "github:catppuccin/starship";
+            flake = false;
+        };
     };
 
-    outputs = {hyprland, nixpkgs, home-manager, nur, ... }@inputs:
+    outputs = {hyprland, hyprlock, nixpkgs, home-manager, nur, ... }@inputs:
         let
             system = "x86_64-linux";
             mkSystem = pkgs: system: hostname:

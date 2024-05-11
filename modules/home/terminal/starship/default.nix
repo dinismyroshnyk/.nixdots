@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ inputs, pkgs, lib, config, ... }:
 
 with lib;
 
@@ -12,21 +12,24 @@ in {
             enable = true;
             enableZshIntegration = true;
             settings = {
+                directory = {
+                    format = "[ ](bold #89b4fa)[ $path ]($style)";
+                    style = "bold #b4befe";
+                };
+
                 character = {
-                    success_symbol = "[›](bold green)";
-                    error_symbol = "[›](bold red)";
+                    success_symbol = "[ ](bold #89b4fa)[ ➜](bold green)";
+                    error_symbol = "[ ](bold #89b4fa)[ ➜](bold red)";
                 };
-                git_status = {
-                    deleted = "✗";
-                    modified = "✶";
-                    staged = "✓";
-                    stashed = "≡";
+
+                cmd_duration = {
+                    format = "[]($style)[[󰔚 ](bg:#161821 fg:#d4c097 bold)$duration](bg:#161821 fg:#BBC3DF)[ ]($style)";
+                    disabled = false;
+                    style = "bg:none fg:#161821";
                 };
-                nix_shell = {
-                    symbol = " ";
-                    heuristic = true;
-                };
-            };
+
+                palette = "catppuccin_mocha";
+            } // builtins.fromTOML (builtins.readFile "${inputs.catppuccin-starship}/palettes/mocha.toml");
         };
     };
 }
