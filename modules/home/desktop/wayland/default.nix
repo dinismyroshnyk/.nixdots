@@ -31,9 +31,8 @@ in {
                 wlr-randr
                 hyprlock
             ];
+            file."hyprland.conf".text = lib.readFile ./hyprlock.conf;
         };
-
-        xdg.configFile."hypr/hyprlock.conf" = lib.readFile ./hyprlock.conf;
 
         services.hypridle = {
             enable = true;

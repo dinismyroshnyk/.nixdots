@@ -1,4 +1,4 @@
-### Planned file structure
+= Planned file structure (WIP)
 
 ```
 .nixdots
@@ -23,17 +23,15 @@
 │       │   │   └── ...
 │       │   ├── media
 │       │   │   └── ...
-│       │   ├── term
-│       │   │   └── ...
 │       │   └── vm
 │       │       └── ...
 │       ├── dev
 │       │   └── ...
-│       ├── editors
-│       │   ├── nvim
-│       │   └── vscode
-│       └── shell
-│           └── ...
+│       ├── term
+│       │   └── shell
+│       └── editors
+│           ├── nvim
+│           └── vscode
 ├── flake.lock
 └── flake.nix
 ```
