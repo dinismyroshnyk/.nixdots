@@ -13,7 +13,7 @@
         firefox.enable = true;
         vscode.enable = true;
         rofi.enable = true;
-        tmux.enable = true;
+        zellij.enable = true;
         starship.enable = true;
     };
 }

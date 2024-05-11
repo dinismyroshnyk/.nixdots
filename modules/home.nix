@@ -17,7 +17,7 @@
         ./home/terminal/lf/default.nix
         ./home/terminal/zsh/default.nix
         ./home/terminal/starship/default.nix
-        ./home/terminal/tmux/default.nix
+        ./home/terminal/zellij/default.nix
     ];
 
     # Fonts
