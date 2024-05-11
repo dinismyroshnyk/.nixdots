@@ -5,7 +5,7 @@ with lib;
 let
     cfg = config.modules.wayland;
 in {
-    options.modules.hyprland= { enable = mkEnableOption "wayland"; };
+    options.modules.wayland= { enable = mkEnableOption "wayland"; };
     config = mkIf cfg.enable {
         wayland.windowManager.hyprland = {
             enable = true;
@@ -55,6 +55,10 @@ in {
                     }
                 ];
             };
+        };
+
+        programs.waybar = {
+            enable = true;
         };
     };
 }
