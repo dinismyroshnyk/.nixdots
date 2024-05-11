@@ -8,7 +8,7 @@
         zsh.enable = true;
         nvim.enable = true;
         lf.enable = true;
-        hyprland.enable = true;
+        wayland.enable = true;
         waybar.enable = true;
         foot.enable = true;
         firefox.enable = true;

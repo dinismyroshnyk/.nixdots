@@ -5,7 +5,7 @@
         # Desktop
         ./home/desktop/browser/firefox/default.nix
         ./home/desktop/term/foot/default.nix
-        ./home/desktop/apps/hyprland/default.nix
+        ./home/desktop/apps/wayland/default.nix
         ./home/desktop/apps/waybar/default.nix
         ./home/desktop/apps/rofi/default.nix
         ./home/desktop/apps/tmux/default.nix

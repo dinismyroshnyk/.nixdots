@@ -18,9 +18,6 @@
     powerManagement.enable = true;
     services.tlp.enable = true;
 
-    # Suspend on lid close.
-    services.logind.lidSwitch = "suspend";
-
     # Enable GRUB bootloader.
     boot = {
         kernelPackages = pkgs.linuxPackages_testing;
