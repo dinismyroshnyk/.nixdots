@@ -5,13 +5,16 @@ with lib;
 let
     cfg = config.modules.wayland;
 in {
-    options.modules.wayland= { enable = mkEnableOption "wayland"; };
+    options.modules.hyprland= { enable = mkEnableOption "wayland"; };
     config = mkIf cfg.enable {
-        imports = [
-            ./hyprland.nix
-            ./hyprlock.nix
-        ];
-        xdg.configFile."hypr/hyprlock.conf" = lib.readFile ./hyprlock.conf;
+        wayland.windowManager.hyprland = {
+            enable = true;
+            # enableNvidiaPatches = true; no longer needed
+            xwayland.enable = true;
+	        extraConfig = lib.readFile ./hyprland.conf;
+            systemd.enable = true;
+        };
+
         home = {
             sessionVariables = {
                 NIXOS_OZONE_WL = "1";
@@ -28,6 +31,30 @@ in {
                 wlr-randr
                 hyprlock
             ];
+        };
+
+        xdg.configFile."hypr/hyprlock.conf" = lib.readFile ./hyprlock.conf;
+
+        services.hypridle = {
+            enable = true;
+            settings = {
+                general = {
+                    after_sleep_cmd = "hyprctl dispatch dpms on";
+                    ignore_dbus_inhibit = false;
+                    lock_cmd = "hyprlock";
+                };
+                listener = [
+                    {
+                    timeout = 90;
+                    on-timeout = "hyprlock";
+                    }
+                    {
+                    timeout = 120;
+                    on-timeout = "hyprctl dispatch dpms off";
+                    on-resume = "hyprctl dispatch dpms on";
+                    }
+                ];
+            };
         };
     };
 }
