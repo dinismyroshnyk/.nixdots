@@ -18,20 +18,15 @@
     powerManagement.enable = true;
     services.tlp.enable = true;
 
-    # Enable gvfs, dbus and fstrim.
-    services = {
-        gvfs.enable = true;
-        dbus.enable = true;
-        fstrim.enable = true;
-    };
-
     # Enable dconf and gnupg.
     programs.dconf.enable = true;
     programs.gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
-        # pinentryFlavor = "";
     };
+
+    # Configure PAM to work with hyprlock and greetd.
+    security.pam.services.hyprlock.text = "auth include login";
 
     # Enable GRUB bootloader.
     boot = {
@@ -58,7 +53,6 @@
 
     # Enable networking.
     networking.networkmanager.enable = true;
-    programs.nm-applet.enable = true;
     nixpkgs.config.packageOverrides = pkgs: {
         wpa_supplicant = pkgs.wpa_supplicant.overrideAttrs (attrs: {
             patches = attrs.patches ++ [ ./eduroam.patch ];
@@ -133,6 +127,7 @@
         steam
         beekeeper-studio
         youtube-music
+        networkmanagerapplet
     ];
 
     # Enable MySQL server.

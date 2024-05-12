@@ -61,268 +61,291 @@ in {
             ];
         };
 
-        programs.hyprlock = {
-            enable = true;
-            general = {
-                disable_loading_bar = true;
-                hide_cursor = false;
-                no_fade_in = true;
+        services = {
+            hypridle = {
+                enable = true;
+                settings = {
+                    general = {
+                        before_sleep_cmd = "loginctl lock-session";
+                        after_sleep_cmd = "hyprctl dispatch dpms on";
+                        ignore_dbus_inhibit = false;
+                        lock_cmd = "hyprlock";
+                    };
+                    listener = [
+                        {
+                        timeout = 90;
+                        on-timeout = "hyprlock";
+                        }
+                        {
+                        timeout = 120;
+                        on-timeout = "hyprctl dispatch dpms off";
+                        on-resume = "hyprctl dispatch dpms on";
+                        }
+                    ];
+                };
             };
-            input-fields = [{
-                monitor = "";
-                size = {
-                width = 300;
-                height = 50;
-                };
-                outline_thickness = 2;
-                fade_on_empty = false;
-                placeholder_text = ''<span font_family="${custom.font}">Password...</span>'';
-                dots_spacing = 0.3;
-                dots_center = true;
-            }];
-            labels = [{
-                monitor = "";
-                text = "$TIME";
-                font_size = 50;
-                position = {
-                    x = 0;
-                    y = 80;
-                };
-                valign = "center";
-                halign = "center";
-            }];
-        };
 
-        #xdg.configFile."hypr/hyprlock.conf".text = ''
-        #    input-field {
-        #        monitor =
-        #        size = 300, 50
-        #        hide_input = false
-        #    }
-        #    label {
-        #        monitor =
-        #        text = cmd[update:1000] echo "$(date '+%R')"
-        #        color = rgba(255, 255, 255, 1.0)
-        #        font_size = 55
-        #        font_family = JetBrainsMono NF
-        #        position = 0, 80
-        #        halign = center
-        #        valign = center
-        #    }
-        #'';
+            hyprpaper = {
+                enable = true;
+                settings = {
+                    preload =
+                        [ "$NIXOS_CONFIG_DIR/wallpapers/..." ];
 
-        services.hypridle = {
-            enable = true;
-            settings = {
-                general = {
-                    after_sleep_cmd = "hyprctl dispatch dpms on";
-                    ignore_dbus_inhibit = false;
-                    lock_cmd = "hyprlock";
+                    wallpaper = [
+                        ",$NIXOS_CONFIG_DIR/wallpapers/..."
+                    ];
                 };
-                listener = [
-                    {
-                    timeout = 90;
-                    on-timeout = "hyprlock";
-                    }
-                    {
-                    timeout = 120;
-                    on-timeout = "hyprctl dispatch dpms off";
-                    on-resume = "hyprctl dispatch dpms on";
-                    }
-                ];
             };
         };
 
-        programs.waybar = {
-            enable = true;
-            settings.mainBar = {
-                position= "top";
-                layer= "top";
-                height= 5;
-                margin-top= 0;
-                margin-bottom= 0;
-                margin-left= 0;
-                margin-right= 0;
-                modules-left= [
-                    "custom/launcher"
-                    "hyprland/workspaces"
-                ];
-                modules-center= [
-                    "clock"
-                ];
-                modules-right= [
-                    "tray"
-                    "cpu"
-                    "memory"
-                    "disk"
-                    "pulseaudio"
-                    "battery"
-                    "network"
-                ];
-                clock= {
-                    calendar = {
-                    format = { today = "<span color='#b4befe'><b><u>{}</u></b></span>"; };
+        programs = {
+            hyprlock = {
+                enable = true;
+                settings = {
+                    general = {
+                        disable_loading_bar = true;
+                        hide_cursor = true;
+                        no_fade_in = false;
                     };
-                    format = " {:%H:%M}";
-                    tooltip= "true";
-                    tooltip-format= "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-                    format-alt= " {:%d/%m}";
-                };
-                "hyprland/workspaces"= {
-                    active-only= false;
-                    disable-scroll= true;
-                    format = "{icon}";
-                    on-click= "activate";
-                    format-icons= {
-                        "1"= "󰈹";
-                        "2"= "";
-                        "3"= "󰘙";
-                        "4"= "󰙯";
-                        "5"= "";
-                        "6"= "";
-                        urgent= "";
-                        default = "";
-                        sort-by-number= true;
-                    };
-                    persistent-workspaces = {
-                        "1"= [];
-                        "2"= [];
-                        "3"= [];
-                        "4"= [];
-                        "5"= [];
-                    };
-                };
-                memory= {
-                    format= "󰟜 {}%";
-                    format-alt= "󰟜 {used} GiB"; # 
-                    interval= 2;
-                };
-                cpu= {
-                    format= "  {usage}%";
-                    format-alt= "  {avg_frequency} GHz";
-                    interval= 2;
-                };
-                disk = {
-                    # path = "/";
-                    format = "󰋊 {percentage_used}%";
-                    interval= 60;
-                };
-                network = {
-                    format-wifi = "  {signalStrength}%";
-                    format-ethernet = "󰀂 ";
-                    tooltip-format = "Connected to {essid} {ifname} via {gwaddr}";
-                    format-linked = "{ifname} (No IP)";
-                    format-disconnected = "󰖪 ";
-                };
-                tray= {
-                    icon-size= 20;
-                    spacing= 8;
-                };
-                pulseaudio= {
-                    format= "{icon} {volume}%";
-                    format-muted= "󰖁  {volume}%";
-                    format-icons= {
-                        default= [" "];
-                    };
-                    scroll-step= 5;
-                    on-click= "pamixer -t";
-                };
-                battery = {
-                    format = "{icon} {capacity}%";
-                    format-icons = [" " " " " " " " " "];
-                    format-charging = " {capacity}%";
-                    format-full = " {capacity}%";
-                    format-warning = " {capacity}%";
-                    interval = 5;
-                    states = {
-                        warning = 20;
-                    };
-                    format-time = "{H}h{M}m";
-                    tooltip = true;
-                    tooltip-format = "{time}";
-                };
-                "custom/launcher"= {
-                    format= "";
-                    on-click= "pkill wofi || rofi --show drun";
-                    on-click-right= "pkill rofi || wallpaper-picker";
-                    tooltip= "false";
+
+                    background = [{
+                        path = ""; # Path to image
+                        blur_passes = 3;
+                        blur_size = 8;
+                    }];
+
+                    input-field = [{
+                        size = "200, 50";
+                        position = "0, -80";
+                        monitor = "";
+                        dots_center = true;
+                        fade_on_empty = false;
+                        font_color = "rgb(202, 211, 245)";
+                        inner_color = "rgb(91, 96, 120)";
+                        outer_color = "rgb(24, 25, 38)";
+                        outline_thickness = 5;
+                        placeholder_text = ''<span foreground="##cad3f5">Password...</span>'';
+                        shadow_passes = 2;
+                    }];
+
+                    label = [{
+                        text = "cmd[update:1000] echo \"$(date '+%R')\"";
+                        color = "rgba(255, 255, 255, 1.0)";
+                        font_size = 55;
+                        font_family = "JetBrainsMono NF";
+                        position = "0, 80";
+                        halign = "center";
+                        valign = "center";
+                    }];
                 };
             };
-            style = ''
-                * {
-                    border: none;
-                    border-radius: 0px;
-                    padding: 0;
-                    margin: 0;
-                    min-height: 0px;
-                    font-family: ${custom.font};
-                    font-weight: ${custom.font_weight};
-                    opacity: ${custom.opacity};
-                }
-                window#waybar {
-                    background: none;
-                }
-                #workspaces {
-                    font-size: 18px;
-                    padding-left: 15px;
-                }
-                #workspaces button {
-                    color: ${custom.text_color};
-                    padding-left:  6px;
-                    padding-right: 6px;
-                }
-                #workspaces button.empty {
-                    color: #6c7086;
-                }
-                #workspaces button.active {
-                    color: #b4befe;
-                }
-                #tray, #pulseaudio, #network, #cpu, #memory, #disk, #clock, #battery {
-                    font-size: ${custom.font_size};
-                    color: ${custom.text_color};
-                }
-                #cpu {
-                    padding-left: 15px;
-                    padding-right: 9px;
-                    margin-left: 7px;
-                }
-                #memory {
-                    padding-left: 9px;
-                    padding-right: 9px;
-                }
-                #disk {
-                    padding-left: 9px;
-                    padding-right: 15px;
-                }
-                #tray {
-                    padding: 0 20px;
-                    margin-left: 7px;
-                }
-                #pulseaudio {
-                    padding-left: 15px;
-                    padding-right: 9px;
-                    margin-left: 7px;
-                }
-                #battery {
-                    padding-left: 9px;
-                    padding-right: 9px;
-                }
-                #network {
-                    padding-left: 9px;
-                    padding-right: 15px;
-                }
-                #clock {
-                    padding-left: 9px;
-                    padding-right: 15px;
-                }
-                #custom-launcher {
-                    font-size: 20px;
-                    color: #b4befe;
-                    font-weight: ${custom.font_weight};
-                    padding-left: 10px;
-                    padding-right: 15px;
-                }
-            '';
+
+            waybar = {
+                enable = true;
+                settings.mainBar = {
+                    position = "top";
+                    layer = "top";
+                    height = 5;
+                    margin-top = 0;
+                    margin-bottom = 0;
+                    margin-left = 0;
+                    margin-right = 0;
+                    modules-left = [
+                        "custom/launcher"
+                        "hyprland/workspaces"
+                    ];
+                    modules-center = [
+                        "clock"
+                    ];
+                    modules-right = [
+                        "cpu"
+                        "memory"
+                        "disk"
+                        "pulseaudio"
+                        "battery"
+                        "network"
+                    ];
+                    "custom/launcher" = {
+                        format = "";
+                        on-click = "wlogout";
+                        tooltip = false;
+                    };
+                    "hyprland/workspaces" = {
+                        active-only = false;
+                        disable-scroll = true;
+                        all-outputs = true;
+                        show-special = false;
+                        format = "{icon}";
+                        on-click = "activate";
+                        persistent-workspaces = {
+                            "1" = [];
+                            "2" = [];
+                            "3" = [];
+                            "4" = [];
+                            "5" = [];
+                        };
+                        format-icons = {
+                            "1" = "一";
+                            "2" = "二";
+                            "3" = "三";
+                            "4" = "四";
+                            "5" = "五";
+                            "6" = "六";
+                            "7" = "七";
+                            "8" = "八";
+                            "9" = "九";
+                            "10" = "十";
+                        };
+                    };
+                    clock= {
+                        calendar = {
+                        format = { today = "<span color='#b4befe'><b><u>{}</u></b></span>"; };
+                        };
+                        format = " {:%H:%M}";
+                        tooltip = "true";
+                        tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+                        format-alt = " {:%d/%m}";
+                    };
+                    cpu = {
+                        format = "󰍛 {usage}%";
+                        format-alt = "󰍛 {avg_frequency} GHz";
+                        interval = 2;
+                    };
+                    memory = {
+                        format = "󰾆 {percentage}% ";
+                        format-alt = "󰾆 {used} GiB";
+                        interval = 2;
+                    };
+                    disk = {
+                        format = "󰋊 {percentage_used}%";
+                        interval = 60;
+                    };
+                    pulseaudio = {
+                        format = "{icon} {volume}%";
+                        format-muted = "󰖁 {volume}%";
+                        format-icons = {
+                            default = [" "];
+                        };
+                        scroll-step = 5;
+                        on-click = "amixer -q set Master toggle";
+                    };
+                    network = {
+                        format-wifi = "  {signalStrength}%";
+                        format-ethernet = "󰀂";
+                        tooltip-format = "Connected to {essid} {ifname} via {gwaddr}";
+                        format-linked = "{ifname} (No IP)";
+                        format-disconnected = "󰖪";
+                        on-click = "nm-connection-editor"; # not working ?
+                    };
+                    battery = {
+                        format = "{icon} {capacity}%";
+                        format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+                        format-charging = " {capacity}%";
+                        format-plugged = "󱘖 {capacity}%";
+                        format-warning = " {capacity}%";
+                        interval = 5;
+                        states = {
+                            warning = 20;
+                        };
+                        format-time = "{H}h{M}m";
+                        tooltip = true;
+                        tooltip-format = "{time}";
+                    };
+                };
+                style = ''
+                    * {
+                        border: none;
+                        font-family: ${custom.font};
+                        font-weight: ${custom.font_weight};
+                        opacity: ${custom.opacity};
+                    }
+                    window#waybar {
+                        background: none;
+                    }
+                    #custom-launcher {
+                        font-size: 20px;
+                        color: #b4befe;
+                        font-weight: ${custom.font_weight};
+                        padding-left: 16px;
+                        padding-right: 16px;
+                    }
+                    #workspaces {
+                        font-size: 20px;
+                    }
+                    #workspaces button {
+                        color: ${custom.text_color};
+                        padding-right: 6px;
+                    }
+                    #workspaces button:hover {
+                        box-shadow: inherit;
+                        text-shadow: inherit;
+                    }
+                    #workspaces button.empty {
+                        color: #6c7086;
+                    }
+                    #workspaces button.active {
+                        color: #b4befe;
+                    }
+                    #clock {
+                        font-size: 20px;
+                        color: ${custom.text_color};
+                    }
+                    #cpu, #memory, #disk, #pulseaudio, #battery, #network {
+                        font-size: 20px;
+                        color: ${custom.text_color};
+                    }
+                    #cpu {
+                        padding-left: 15px;
+                        padding-right: 9px;
+                        margin-left: 7px;
+                    }
+                    #memory {
+                        padding-left: 9px;
+                        padding-right: 9px;
+                    }
+                    #disk {
+                        padding-left: 9px;
+                        padding-right: 15px;
+                    }
+                    #pulseaudio {
+                        padding-left: 15px;
+                        padding-right: 9px;
+                        margin-left: 7px;
+                    }
+                    #battery {
+                        padding-left: 9px;
+                        padding-right: 9px;
+                    }
+                    #network {
+                        padding-right: 20px;
+                    }
+                '';
+            };
+
+            wlogout = {
+                enable = true;
+                style = ''
+                    * {
+                        background: none;
+                    }
+                    window {
+                        background-color: rgba(0, 0, 0, .5);
+                    }
+                    button {
+                        background: rgba(0, 0, 0, .05);
+                        border-radius: 8px;
+                        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 0 rgba(0, 0, 0, .5);
+                        margin: 1rem;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: 25%;
+                    }
+                    button:focus, button:active, button:hover {
+                        background-color: rgba(255, 255, 255, 0.2);
+                        outline-style: none;
+                    }
+                '';
+            };
         };
     };
 }
