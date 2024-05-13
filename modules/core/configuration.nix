@@ -10,6 +10,9 @@
     # Enable backlight control.
     programs.light.enable = true;
 
+    # Enable network-manager-applet.
+    programs.nm-applet.enable = true;
+
     # Disable unnecessary packages.
     programs.nano.enable = false;
     services.xserver.excludePackages = with pkgs; [ xterm ];
@@ -61,12 +64,17 @@
 
     # Enable pulseaudio.
     security.rtkit.enable = true;
+    sound.enable = true;
+    hardware.pulseaudio.enable = false;
     services.pipewire = {
         enable = true;
         alsa.enable = true;
         alsa.support32Bit = true;
         pulse.enable = true;
-        jack.enable = true;
+        wireplumber = {
+            enable = true;
+            configPackages = [];
+        };
     };
 
     # Define a user account.
@@ -74,7 +82,7 @@
         shell = pkgs.zsh;
         isNormalUser = true;
         description = "Dinis Myroshnyk";
-        extraGroups = [ "networkmanager" "wheel" "video" ];
+        extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
     };
 
     # Set your time zone.
@@ -102,11 +110,11 @@
         enable = true;
         wlr.enable = true;
 	    extraPortals = with pkgs; [
-            xdg-desktop-portal-wlr
+            xdg-desktop-portal-hyprland
             xdg-desktop-portal-gtk
         ];
         xdgOpenUsePortal = true;
-        config.common.default = ["gtk" "wlr"];
+        config.common.default = ["gtk" "hyprland"];
     };
 
     # Disable prompt for sudo password.
@@ -123,11 +131,12 @@
         zls
         btop
         neofetch
-        discord
+        vesktop
         steam
         beekeeper-studio
         youtube-music
         networkmanagerapplet
+        xwaylandvideobridge
     ];
 
     # Enable MySQL server.

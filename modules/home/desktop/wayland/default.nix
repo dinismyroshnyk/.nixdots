@@ -158,6 +158,7 @@ in {
                         "clock"
                     ];
                     modules-right = [
+                        "tray"
                         "cpu"
                         "memory"
                         "disk"
@@ -205,6 +206,10 @@ in {
                         tooltip = "true";
                         tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
                         format-alt = " {:%d/%m}";
+                    };
+                    tray= {
+                        icon-size= 20;
+                        spacing= 8;
                     };
                     cpu = {
                         format = "󰍛 {usage}%";
@@ -270,7 +275,7 @@ in {
                         padding-right: 16px;
                     }
                     #workspaces {
-                        font-size: 20px;
+                        font-size: 12px;
                     }
                     #workspaces button {
                         color: ${custom.text_color};
@@ -287,11 +292,11 @@ in {
                         color: #b4befe;
                     }
                     #clock {
-                        font-size: 20px;
+                        font-size: 12px;
                         color: ${custom.text_color};
                     }
-                    #cpu, #memory, #disk, #pulseaudio, #battery, #network {
-                        font-size: 20px;
+                    #tray, #cpu, #memory, #disk, #pulseaudio, #battery, #network {
+                        font-size: 12px;
                         color: ${custom.text_color};
                     }
                     #cpu {
@@ -340,7 +345,7 @@ in {
                         background-position: center;
                         background-size: 25%;
                     }
-                    button:focus, button:active, button:hover {
+                    button:active, button:hover {
                         background-color: rgba(255, 255, 255, 0.2);
                         outline-style: none;
                     }

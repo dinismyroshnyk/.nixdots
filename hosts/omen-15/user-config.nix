@@ -15,5 +15,6 @@
         rofi.enable = true;
         zellij.enable = true;
         starship.enable = true;
+        cava.eneable = true;
     };
 }
