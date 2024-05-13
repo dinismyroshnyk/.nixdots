@@ -7,6 +7,7 @@
         ./home/desktop/wayland/default.nix
         ./home/desktop/apps/rofi/default.nix
         ./home/desktop/apps/cava/default.nix
+        ./home/desktop/apps/discord/default.nix
         # Dev
         # Editors
         ./home/editors/nvim/default.nix

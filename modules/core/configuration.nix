@@ -63,19 +63,33 @@
     };
 
     # Enable pulseaudio.
-    security.rtkit.enable = true;
     sound.enable = true;
     hardware.pulseaudio.enable = false;
     services.pipewire = {
         enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
+        audio.enable = true;
+        alsa = {
+            enable = true;
+            support32Bit = true;
+        };
         pulse.enable = true;
         wireplumber = {
             enable = true;
-            configPackages = [];
+            configPackages = [(
+                pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
+                    bluez_monitor.properties = {
+                        ["bluez5.enable-sbc-xq"] = true,
+                        ["bluez5.enable-msbc"] = true,
+                        ["bluez5.enable-hw-volume"] = true,
+                        ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+                    }
+                ''
+            )];
         };
     };
+
+    # Enable rtkit.
+    security.rtkit.enable = true;
 
     # Define a user account.
     users.users.dinis = {
@@ -131,12 +145,12 @@
         zls
         btop
         neofetch
-        vesktop
         steam
         beekeeper-studio
         youtube-music
         networkmanagerapplet
         xwaylandvideobridge
+        pipewire
     ];
 
     # Enable MySQL server.

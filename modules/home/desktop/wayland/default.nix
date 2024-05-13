@@ -155,10 +155,11 @@ in {
                         "hyprland/workspaces"
                     ];
                     modules-center = [
+                        "cava#left"
                         "clock"
+                        "cava#right"
                     ];
                     modules-right = [
-                        "tray"
                         "cpu"
                         "memory"
                         "disk"
@@ -198,7 +199,23 @@ in {
                             "10" = "十";
                         };
                     };
-                    clock= {
+                    "cava#left" = {
+                        framerate = 60;
+                        bars = 12;
+                        bar_delimiter = 0;
+                        method = "pipewire";
+                        format-icons = [
+                            "<span foreground='#b4befe'>▁</span>"
+                            "<span foreground='#b4befe'>▂</span>"
+                            "<span foreground='#b4befe'>▃</span>"
+                            "<span foreground='#b4befe'>▄</span>"
+                            "<span foreground='#b4befe'>▅</span>"
+                            "<span foreground='#b4befe'>▆</span>"
+                            "<span foreground='#b4befe'>▇</span>"
+                            "<span foreground='#b4befe'>█</span>"
+                        ];
+                    };
+                    clock = {
                         calendar = {
                         format = { today = "<span color='#b4befe'><b><u>{}</u></b></span>"; };
                         };
@@ -207,18 +224,28 @@ in {
                         tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
                         format-alt = " {:%d/%m}";
                     };
-                    tray= {
-                        icon-size= 20;
-                        spacing= 8;
+                    "cava#right" = {
+                        framerate = 60;
+                        bars = 12;
+                        bar_delimiter = 0;
+                        method = "pipewire";
+                        format-icons = [
+                            "<span foreground='#b4befe'>▁</span>"
+                            "<span foreground='#b4befe'>▂</span>"
+                            "<span foreground='#b4befe'>▃</span>"
+                            "<span foreground='#b4befe'>▄</span>"
+                            "<span foreground='#b4befe'>▅</span>"
+                            "<span foreground='#b4befe'>▆</span>"
+                            "<span foreground='#b4befe'>▇</span>"
+                            "<span foreground='#b4befe'>█</span>"
+                        ];
                     };
                     cpu = {
                         format = "󰍛 {usage}%";
-                        format-alt = "󰍛 {avg_frequency} GHz";
                         interval = 2;
                     };
                     memory = {
-                        format = "󰾆 {percentage}% ";
-                        format-alt = "󰾆 {used} GiB";
+                        format = "󰾆 {percentage}%";
                         interval = 2;
                     };
                     disk = {
@@ -229,25 +256,28 @@ in {
                         format = "{icon} {volume}%";
                         format-muted = "󰖁 {volume}%";
                         format-icons = {
-                            default = [" "];
+                            default = [""];
                         };
                         scroll-step = 5;
                         on-click = "amixer -q set Master toggle";
                     };
                     network = {
-                        format-wifi = "  {signalStrength}%";
-                        format-ethernet = "󰀂";
-                        tooltip-format = "Connected to {essid} {ifname} via {gwaddr}";
-                        format-linked = "{ifname} (No IP)";
-                        format-disconnected = "󰖪";
-                        on-click = "nm-connection-editor"; # not working ?
+                        format-wifi = "{icon} {signalStrength}%";
+                        format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
+                        format-ethernet = "󰌘";
+                        format-disconnected = "󰌙";
+                        tooltip-format = "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}";
+                        format-linked = "󰈁 {ifname} (No IP)";
+                        tooltip-format-wifi = "{essid} {icon} {signalStrength}%";
+                        tooltip-format-ethernet = "{ifname} 󰌘";
+                        tooltip-format-disconnected = "󰌙 Disconnected";
+                        max-length = 50;
                     };
                     battery = {
                         format = "{icon} {capacity}%";
-                        format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+                        format-icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
                         format-charging = " {capacity}%";
                         format-plugged = "󱘖 {capacity}%";
-                        format-warning = " {capacity}%";
                         interval = 5;
                         states = {
                             warning = 20;
@@ -293,33 +323,15 @@ in {
                     }
                     #clock {
                         font-size: 12px;
+                        padding-right: 12px;
+                        padding-left: 12px;
                         color: ${custom.text_color};
                     }
-                    #tray, #cpu, #memory, #disk, #pulseaudio, #battery, #network {
+                    #cpu, #memory, #disk, #pulseaudio, #battery, #network {
                         font-size: 12px;
+                        padding-right: 9px;
+                        margin-left: 6px;
                         color: ${custom.text_color};
-                    }
-                    #cpu {
-                        padding-left: 15px;
-                        padding-right: 9px;
-                        margin-left: 7px;
-                    }
-                    #memory {
-                        padding-left: 9px;
-                        padding-right: 9px;
-                    }
-                    #disk {
-                        padding-left: 9px;
-                        padding-right: 15px;
-                    }
-                    #pulseaudio {
-                        padding-left: 15px;
-                        padding-right: 9px;
-                        margin-left: 7px;
-                    }
-                    #battery {
-                        padding-left: 9px;
-                        padding-right: 9px;
                     }
                     #network {
                         padding-right: 20px;
