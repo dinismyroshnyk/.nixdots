@@ -9,6 +9,7 @@
         ./home/desktop/apps/cava/default.nix
         ./home/desktop/apps/discord/default.nix
         # Dev
+        ./home/dev/zig/default.nix
         # Editors
         ./home/editors/nvim/default.nix
         ./home/editors/vscode/default.nix

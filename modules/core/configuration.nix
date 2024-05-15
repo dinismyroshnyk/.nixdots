@@ -10,6 +10,11 @@
     # Enable backlight control.
     programs.light.enable = true;
 
+    # Ignore power key short press.
+    services.logind.extraConfig = ''
+        HandlePowerKey=ignore
+    '';
+
     # Enable network-manager-applet.
     programs.nm-applet.enable = true;
 
@@ -140,17 +145,17 @@
         nil
         xdg-utils
         alsa-utils
-        jdk21
-        zig
+        jdk22
         zls
+        graphviz
         btop
         neofetch
         steam
         beekeeper-studio
         youtube-music
-        networkmanagerapplet
         xwaylandvideobridge
-        pipewire
+        whatsapp-for-linux
+        ani-cli
     ];
 
     # Enable MySQL server.

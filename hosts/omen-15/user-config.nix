@@ -17,5 +17,6 @@
         starship.enable = true;
         cava.enable = true;
         discord.enable = true;
+        zig.enable = true;
     };
 }

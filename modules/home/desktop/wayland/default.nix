@@ -6,7 +6,6 @@ let
     cfg = config.modules.wayland;
     custom = {
         font = "JetBrainsMono Nerd Font";
-        font_size = "15px";
         font_weight = "bold";
         text_color = "#cdd6f4";
         secondary_accent= "89b4fa";
@@ -14,6 +13,11 @@ let
         background = "11111B";
         opacity = "0.98";
     };
+    bgImageSection = name: ''
+        #${name} {
+            background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/${name}.png"));
+        }
+    '';
 in {
     options.modules.wayland= { enable = mkEnableOption "wayland"; };
     config = mkIf cfg.enable {
@@ -132,7 +136,7 @@ in {
                         text = "cmd[update:1000] echo \"$(date '+%R')\"";
                         color = "rgba(255, 255, 255, 1.0)";
                         font_size = 55;
-                        font_family = "JetBrainsMono NF";
+                        font_family = "${custom.font}";
                         position = "0, 80";
                         halign = "center";
                         valign = "center";
@@ -268,7 +272,7 @@ in {
                         format-disconnected = "󰌙";
                         tooltip-format = "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}";
                         format-linked = "󰈁 {ifname} (No IP)";
-                        tooltip-format-wifi = "{essid} {icon} {signalStrength}%";
+                        tooltip-format-wifi = "{essid} {ipaddr} {icon} {signalStrength}%";
                         tooltip-format-ethernet = "{ifname} 󰌘";
                         tooltip-format-disconnected = "󰌙 Disconnected";
                         max-length = 50;
@@ -276,7 +280,8 @@ in {
                     battery = {
                         format = "{icon} {capacity}%";
                         format-icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
-                        format-charging = " {capacity}%";
+                        format-charging = "󰂄 {capacity}%";
+                        format-full = "󰁹 {capacity}%";
                         format-plugged = "󱘖 {capacity}%";
                         interval = 5;
                         states = {
@@ -349,18 +354,28 @@ in {
                         background-color: rgba(0, 0, 0, .5);
                     }
                     button {
-                        background: rgba(0, 0, 0, .05);
+                        background: linear-gradient(rgba(205, 214, 244, 0.5), rgba(205, 214, 244, 0.75)), rgba(0, 0, 0, .05);
                         border-radius: 8px;
                         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 0 rgba(0, 0, 0, .5);
                         margin: 1rem;
                         background-repeat: no-repeat;
-                        background-position: center;
-                        background-size: 25%;
+                        background-position: 50% 30%;
+                        background-size: 15%;
+                        padding: 1rem;
+                        color: ${custom.text_color};
                     }
                     button:active, button:hover {
                         background-color: rgba(255, 255, 255, 0.2);
                         outline-style: none;
                     }
+                    ${lib.concatMapStringsSep "\n" bgImageSection [
+                        "lock"
+                        "logout"
+                        "suspend"
+                        "hibernate"
+                        "shutdown"
+                        "reboot"
+                    ]}
                 '';
             };
         };

@@ -20,7 +20,7 @@ in {
                 "workbench.iconTheme" = "material-icon-theme";
                 "workbench.startupEditor" = "none";
 
-                "editor.fontFamily" = "'JetBrainsMono NF', 'monospace', monospace";
+                "editor.fontFamily" = "'JetBrainsMono NF', 'monospace'";
                 "editor.fontLigatures" = true;
                 "editor.fontSize" = 12;
                 "editor.cursorSurroundingLines" = 15;
@@ -66,6 +66,10 @@ in {
                 "zig.path" = "/run/current-system/sw/bin/zig";
                 "zig.zls.path" = "/run/current-system/sw/bin/zls";
                 "zig.initialSetupDone" = true;
+
+                "plantuml.commandArgs" = [
+                    "-DGRAPHVIZ_DOT=/run/current-system/sw/bin/dot"
+                ];
             };
             languageSnippets = {};
         };

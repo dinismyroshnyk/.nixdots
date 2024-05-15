@@ -13,9 +13,10 @@
             url = "github:catppuccin/starship";
             flake = false;
         };
+        zig.url = "github:mitchellh/zig-overlay";
     };
 
-    outputs = {hyprland, nixpkgs, home-manager, nur, ... }@inputs:
+    outputs = { hyprland, nixpkgs, home-manager, nur, zig, ... }@inputs:
         let
             system = "x86_64-linux";
             mkSystem = pkgs: system: hostname:
