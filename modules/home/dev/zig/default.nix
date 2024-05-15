@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 
 with lib;
 
@@ -7,9 +7,9 @@ let
 in {
     options.modules.zig = { enable = mkEnableOption "zig"; };
     config = mkIf cfg.enable {
-        programs.zig = {
-            enable = true;
-            package = pkgs.zig.master;
-        };
+        home.packages = with pkgs'; [
+            zigpkgs.master
+            zigpkgs.zls
+        ];
     };
 }

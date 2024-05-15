@@ -13,10 +13,10 @@
             url = "github:catppuccin/starship";
             flake = false;
         };
-        zig.url = "github:mitchellh/zig-overlay";
+        zig-overlay.url = "github:mitchellh/zig-overlay";
     };
 
-    outputs = { hyprland, nixpkgs, home-manager, nur, zig, ... }@inputs:
+    outputs = { hyprland, nixpkgs, home-manager, nur, zig-overlay, ... }@inputs:
         let
             system = "x86_64-linux";
             mkSystem = pkgs: system: hostname:
@@ -40,6 +40,12 @@
                         }
                     ];
                     specialArgs = { inherit inputs; };
+                    pkgs = import nixpkgs {
+                        inherit system;
+                        overlays = [
+                            zig-overlay.overlays.default
+                        ];
+                    };
                 };
         in {
             nixosConfigurations = {

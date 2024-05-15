@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
     # Import configurations.
     imports = [
@@ -146,7 +145,6 @@
         xdg-utils
         alsa-utils
         jdk22
-        zls
         graphviz
         btop
         neofetch
