@@ -13,10 +13,14 @@
             url = "github:catppuccin/starship";
             flake = false;
         };
-        zig-overlay.url = "github:mitchellh/zig-overlay";
+        nix-alien.url = "github:thiagokokada/nix-alien";
+        nixvim = {
+            url = "github:nix-community/nixvim";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = { hyprland, nixpkgs, home-manager, nur, zig-overlay, ... }@inputs:
+    outputs = { hyprland, nixpkgs, home-manager, nur, nix-alien, nixvim, self, ... }@inputs:
         let
             system = "x86_64-linux";
             mkSystem = pkgs: system: hostname:
@@ -26,6 +30,7 @@
                         { networking.hostName = hostname; }
                         { environment.variables.HOSTNAME = hostname; }
                         { nixpkgs.config.allowUnfree = true; }
+                        { nixpkgs.overlays = [ inputs.nix-alien.overlays.default ]; }
                         ./modules/core/configuration.nix
                         ./hosts/${hostname}/hardware-configuration.nix
                         home-manager.nixosModules.home-manager
@@ -33,6 +38,9 @@
                             home-manager = {
                                 useUserPackages = true;
                                 useGlobalPkgs = true;
+                                sharedModules = [
+                                    nixvim.homeManagerModules.nixvim
+                                ];
                                 extraSpecialArgs = { inherit inputs; };
                                 users.dinis = ./hosts/${hostname}/user-config.nix;
                             };
@@ -40,12 +48,6 @@
                         }
                     ];
                     specialArgs = { inherit inputs; };
-                    pkgs = import nixpkgs {
-                        inherit system;
-                        overlays = [
-                            zig-overlay.overlays.default
-                        ];
-                    };
                 };
         in {
             nixosConfigurations = {

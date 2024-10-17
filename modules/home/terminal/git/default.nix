@@ -16,6 +16,7 @@ in {
                 core = {
                     excludesfile = "$NIXOS_CONFIG_DIR/scripts/gitignore";
                 };
+                http = { postBuffer = 524288000; };
             };
         };
     };

@@ -32,6 +32,9 @@ in {
                 "editor.minimap.enabled" = true;
                 "editor.minimap.renderCharacters" = false;
                 "editor.wordWrap" = "on";
+                "editor.tabSize" = 4;
+                "editor.insertSpaces" = true;
+                "editor.detectIndentation" = false;
 
                 "terminal.integrated.cursorBlinking" = true;
                 "terminal.integrated.cursorStyle" = "underline";
@@ -49,7 +52,7 @@ in {
                 "nix.serverPath" = "nil";
 
                 "security.workspace.trust.enabled" = false;
-                "telemetry.telemetryLevel" = "off";
+                "telemetry.telemetryLevel" = "all";
 
                 "update.showReleaseNotes" = false;
                 "update.mode" = "none";
@@ -67,9 +70,15 @@ in {
                 "zig.zls.path" = "/run/current-system/sw/bin/zls";
                 "zig.initialSetupDone" = true;
 
+                "asciidoc.antora.enableAntoraSupport" = false;
+
                 "plantuml.commandArgs" = [
                     "-DGRAPHVIZ_DOT=/run/current-system/sw/bin/dot"
                 ];
+
+                "[nix]" = {
+                    "editor.tabSize" = 4;
+                };
             };
             languageSnippets = {};
         };

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs,  ... }:
 {
     # Import configurations.
     imports = [
@@ -67,7 +67,6 @@
     };
 
     # Enable pulseaudio.
-    sound.enable = true;
     hardware.pulseaudio.enable = false;
     services.pipewire = {
         enable = true;
@@ -100,7 +99,7 @@
         shell = pkgs.zsh;
         isNormalUser = true;
         description = "Dinis Myroshnyk";
-        extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
+        extraGroups = [ "networkmanager" "wheel" "video" "audio" "openrazer" ];
     };
 
     # Set your time zone.
@@ -138,9 +137,14 @@
     # Disable prompt for sudo password.
     security.sudo.wheelNeedsPassword = false;
 
+    # Enable OpenRazer daemon
+    hardware.openrazer.enable = true;
+
     # System wide packages.
     programs.zsh.enable = true;
     environment.systemPackages = with pkgs; [
+        openrazer-daemon
+        razergenie
         nil
         xdg-utils
         alsa-utils
@@ -152,8 +156,24 @@
         beekeeper-studio
         youtube-music
         xwaylandvideobridge
-        whatsapp-for-linux
+        whatsie
         ani-cli
+        gimp
+        inkscape
+        libreoffice
+        onlyoffice-bin_latest
+        ghidra-bin
+        nix-alien
+        protonmail-desktop
+        hyprshot
+        doxygen_gui
+        python3
+        python312Packages.sphinx
+        python312Packages.sphinx-rtd-dark-mode
+        python312Packages.pygame
+        zig
+        zls
+        tiled
     ];
 
     # Enable MySQL server.
@@ -166,6 +186,10 @@
         enable = true;
         package = pkgs.mysql;
     };
+
+    # Enable Hamachi VPN + Haguichi GUI
+    services.logmein-hamachi.enable = true;
+    programs.haguichi.enable = true;
 
     # Enable flake support.
     nix.settings.experimental-features = [ "flakes" "nix-command" ];

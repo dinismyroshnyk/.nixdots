@@ -16,15 +16,11 @@
                 enableOffloadCmd = true;
             };
         };
-        #open = true;
         nvidiaSettings = true;
+        open = false;
     };
     services.xserver.videoDrivers = [ "nvidia" ];
 
     # Enable OpenGL
-    hardware.opengl = {
-        enable = true;
-        driSupport = true;
-        driSupport32Bit = true;
-    };
+    hardware.graphics.enable = true;
 }

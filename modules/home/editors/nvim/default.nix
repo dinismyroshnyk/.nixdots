@@ -7,9 +7,12 @@ let
 in {
     options.modules.nvim = { enable = mkEnableOption "nvim"; };
     config = mkIf cfg.enable {
-        programs.neovim = {
+        programs.nixvim = {
             enable = true;
-            extraConfig = lib.fileContents ./init.lua;
+            colorschemes.catppuccin.enable = true;
+            plugins = {
+                lualine.enable = true;
+            };
         };
     };
 }
