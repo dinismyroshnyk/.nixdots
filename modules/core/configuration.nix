@@ -1,4 +1,16 @@
-{ pkgs,  ... }:
+{ pkgs, ... }:
+let
+    # Obtained through ´https://lazamar.co.uk/nix-versions/´
+    # legacy-pkgs = import (builtins.fetchTarball {
+    #     url = "https://github.com/NixOS/nixpkgs/archive/c407032be28ca2236f45c49cfb2b8b3885294f7f.tar.gz";
+    #     sha256 = "sha256:1a95d5g5frzgbywpq7z0az8ap99fljqk3pkm296asrvns8qcv5bv";
+    # }) { inherit (pkgs) system; };
+    # graalvm21-ce = legacy-pkgs.graalvm-ce;
+
+    # java_ver = graalvm21-ce;
+    development_jdk = pkgs.graalvm-ce;
+    service_jdk = pkgs.jdk23; # PlantUML doesn't work with GraalVM for some reason
+in
 {
     # Import configurations.
     imports = [
@@ -37,7 +49,8 @@
 
     # Enable GRUB bootloader.
     boot = {
-        kernelPackages = pkgs.linuxPackages_testing;
+        kernelPackages = pkgs.linuxPackages_latest; # At the current date, does not work with nvidia drivers.
+        # kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
         loader = {
             efi = {
                 canTouchEfiVariables = true;
@@ -99,7 +112,7 @@
         shell = pkgs.zsh;
         isNormalUser = true;
         description = "Dinis Myroshnyk";
-        extraGroups = [ "networkmanager" "wheel" "video" "audio" "openrazer" ];
+        extraGroups = [ "networkmanager" "wheel" "video" "audio" "openrazer" "docker" ];
     };
 
     # Set your time zone.
@@ -137,22 +150,31 @@
     # Disable prompt for sudo password.
     security.sudo.wheelNeedsPassword = false;
 
-    # Enable OpenRazer daemon
+    # Enable OpenRazer daemon.
     hardware.openrazer.enable = true;
+
+    # Enable Steam.
+    programs.steam.enable = true;
+
+    # Enable PlantUML service.
+    services.plantuml-server = {
+        enable = true;
+        packages.jdk = service_jdk;
+        listenPort = 8081;
+        graphvizPackage = pkgs.graphviz; # does not install the package
+    };
 
     # System wide packages.
     programs.zsh.enable = true;
     environment.systemPackages = with pkgs; [
+        lutris
         openrazer-daemon
         razergenie
         nil
         xdg-utils
         alsa-utils
-        jdk22
-        graphviz
-        btop
+        graphviz # For PlantUML diagrams
         neofetch
-        steam
         beekeeper-studio
         youtube-music
         xwaylandvideobridge
@@ -168,13 +190,71 @@
         hyprshot
         doxygen_gui
         python3
-        python312Packages.sphinx
-        python312Packages.sphinx-rtd-dark-mode
         python312Packages.pygame
         zig
         zls
         tiled
+        aseprite
+        asciidoctor
+        gcc
+        rubyPackages_3_3.rouge
+        postman
+        minikube
+        kubernetes
+        prismlauncher
+        path-of-building
+        ladybird
+        nbfc-linux
+        docker-compose
+        figma-linux
+        (callPackage gradle-packages.gradle_8 { # Make Gradle follow the correct JDK
+            java = development_jdk;
+        })
+        kotlin
+        jetbrains.idea-community-bin
+        glava
+        zap
+        sonar-scanner-cli
     ];
+
+    # GraalVM derivation to fix misplaced release file. IDE's now recognize it as a valid JDK.
+    nixpkgs.overlays = [
+        (self: super: {
+            graalvm-ce = super.graalvm-ce.overrideAttrs (oldAttrs: {
+            postInstall = oldAttrs.postInstall + ''
+                # Symlink release file for IDE compatibility
+                ln -s $out/share/release $out/release
+            '';
+            });
+        })
+    ];
+
+    # Enable Java and add JAVA_HOME to the global environment.
+    programs.java = {
+        enable = true;
+        package = development_jdk;
+    };
+
+    # Enable nbfc.
+    # systemd.services.nbfc_service = {
+    #     enable = true;
+    #     description = "NoteBook FanControl service";
+    #     serviceConfig.Type = "simple";
+    #     path = [pkgs.kmod];
+    #     script = "${pkgs.nbfc-linux}/${"bin/nbfc_service --config-file '/home/dinis/.config/nixos/modules/core/nbfc.json'"}";
+    #     wantedBy = ["multi-user.target"];
+    # };
+
+    # Enavle VirtualBox.
+    virtualisation.virtualbox.host.enable = true;
+    virtualisation.virtualbox.host.enableExtensionPack = true;
+    users.extraGroups.vboxusers.members = [ "dinis" ];
+
+    # Enable Docker.
+    virtualisation.docker = {
+        enable = true;
+        storageDriver = "btrfs";
+    };
 
     # Enable MySQL server.
     services.mysql = {
@@ -184,7 +264,25 @@
         # Then, run `FLUSH PRIVILEGES;`
         # The password is now set.
         enable = true;
-        package = pkgs.mysql;
+        package = pkgs.mariadb;
+    };
+
+    # Enable PostgreSQL server
+    services.postgresql = {
+        # You can access the databases with the username postgres without a password.
+        # To add a user and a password (optional), do the following:
+        # Run `sudo -u postgres psql`
+        # Inside the psql shell, run `CREATE USER username WITH PASSWORD 'password';`
+        # The user and password are now set.
+        # To grant privileges to a database run: `GRANT ALL PRIVILEGES ON DATABASE "database" TO "username";`
+        settings.port = 5433;
+        enable = true;
+        ensureDatabases = [ "web-test" ]; # Creates this database
+        authentication = pkgs.lib.mkOverride 10 ''
+            #type  database   DBuser  auth-method
+            local  all        all     trust
+            host   all        all     127.0.0.1/32   trust
+        '';
     };
 
     # Enable Hamachi VPN + Haguichi GUI
@@ -199,10 +297,13 @@
         Host estgoh.ipc.pt
             SetEnv TERM=xterm-256color
 	        KexAlgorithms diffie-hellman-group1-sha1
-            HostKeyAlgorithms ssh-rsa,ssh-dss
+            HostKeyAlgorithms +ssh-rsa
             Ciphers aes128-cbc
     ";
 
+    # system.autoUpgrade.channel = "https://channels.nixos.org/nixos-unstable";
+    # system.stateVersion = "unstable"
+
     # System state version.
-    system.stateVersion = "24.05";
+    system.stateVersion = "24.11";
 }

@@ -15,7 +15,7 @@
         rofi.enable = true;
         zellij.enable = true;
         starship.enable = true;
-        cava.enable = true;
+        cava.enable = false;
         discord.enable = true;
     };
 }

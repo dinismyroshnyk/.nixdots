@@ -40,12 +40,12 @@ in {
                 "terminal.integrated.cursorStyle" = "underline";
                 "terminal.integrated.fontSize" = 12;
 
-                "github.copilot.enable" = {
-                    "*" = true;
-                    "plaintext" = true;
-                    "markdown" = true;
-                    "scminput" = false;
-                };
+                # "github.copilot.enable" = {
+                #     "*" = true;
+                #     "plaintext" = true;
+                #     "markdown" = true;
+                #     "scminput" = false;
+                # };
                 "git.autofetch" = true;
 
                 "nix.enableLanguageServer" = true;
@@ -70,15 +70,34 @@ in {
                 "zig.zls.path" = "/run/current-system/sw/bin/zls";
                 "zig.initialSetupDone" = true;
 
-                "asciidoc.antora.enableAntoraSupport" = false;
+                "asciidoc.antora.showEnableAntoraPrompts" = false;
 
                 "plantuml.commandArgs" = [
                     "-DGRAPHVIZ_DOT=/run/current-system/sw/bin/dot"
                 ];
+                "plantuml.server" = "http://localhost:8081/plantuml/png";
+                "plantuml.render" = "PlantUMLServer";
 
                 "[nix]" = {
                     "editor.tabSize" = 4;
                 };
+
+                "python.analysis.extraPaths" = [
+                    "\${workspaceFolder}/.venv/lib/python3.*/site-packages"
+                ];
+                "python.defaultInterpreterPath" = "\${workspaceFolder}/.venv/bin/python";
+
+                "files.exclude" = {
+                    "**/.git" = true;
+                    "**/.svn" = true;
+                    "**/.hg" = true;
+                    "**/CVS" = true;
+                    "**/.DS_Store" = true;
+                    "**/Thumbs.db" = true;
+                    "**/__pycache__" = true;
+                };
+
+                "codescene.enableAutoRefactor" = false;
             };
             languageSnippets = {};
         };

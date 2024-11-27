@@ -159,9 +159,9 @@ in {
                         "hyprland/workspaces"
                     ];
                     modules-center = [
-                        "cava#left"
+                        "glava#left"
                         "clock"
-                        "cava#right"
+                        "glava#right"
                     ];
                     modules-right = [
                         "cpu"
@@ -203,7 +203,7 @@ in {
                             "10" = "十";
                         };
                     };
-                    "cava#left" = {
+                    "glava#left" = {
                         framerate = 60;
                         bars = 12;
                         bar_delimiter = 0;
@@ -228,7 +228,7 @@ in {
                         tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
                         format-alt = " {:%d/%m}";
                     };
-                    "cava#right" = {
+                    "glava#right" = {
                         framerate = 60;
                         bars = 12;
                         bar_delimiter = 0;
